@@ -1,0 +1,101 @@
+<style>
+  body {
+    background-color: #f8f9fa;
+    padding-top: 2rem;
+  }
+
+  .form-section {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+  }
+
+  .form-section h5 {
+    margin-bottom: 1rem;
+  }
+
+  .form-label {
+    font-weight: 500;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h2 class="text-center mb-4">Weekly Diet Entry Form</h2>
+    <form id="dietForm" action="/create_diet/{{ .UserId }}" method="post">
+      <div id="formContainer"></div>
+
+      <div class="text-center mb-5">
+        <button type="submit" class="btn btn-primary px-5">Submit Weekly Diet</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const formContainer = document.getElementById("formContainer");
+
+    days.forEach((day, index) => {
+      const dayId = day.toLowerCase();
+      const section = document.createElement("div");
+      section.className = "form-section";
+
+      section.innerHTML = `
+        <h5>${day}</h5>
+
+        <div class="mb-3">
+          <label class="form-label" for="${dayId}_breakfast">Breakfast</label>
+          <input type="text" class="form-control" name="${dayId}_breakfast" id="${dayId}_breakfast">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="${dayId}_morning_snack">Morning Snack</label>
+          <input type="text" class="form-control" name="${dayId}_morning_snack" id="${dayId}_morning_snack">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="${dayId}_lunch">Lunch</label>
+          <input type="text" class="form-control" name="${dayId}_lunch" id="${dayId}_lunch">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="${dayId}_pre_workout">Pre-Workout</label>
+          <input type="text" class="form-control" name="${dayId}_pre_workout" id="${dayId}_pre_workout">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="${dayId}_post_workout">Post-Workout</label>
+          <input type="text" class="form-control" name="${dayId}_post_workout" id="${dayId}_post_workout">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="${dayId}_dinner">Dinner</label>
+          <input type="text" class="form-control" name="${dayId}_dinner" id="${dayId}_dinner">
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label class="form-label" for="${dayId}_protein">Protein (g)</label>
+            <input type="number" step="any" class="form-control" name="${dayId}_protein" id="${dayId}_protein">
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label" for="${dayId}_carbs">Carbs (g)</label>
+            <input type="number" step="any" class="form-control" name="${dayId}_carbs" id="${dayId}_carbs">
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label" for="${dayId}_fats">Fats (g)</label>
+            <input type="number" step="any" class="form-control" name="${dayId}_fats" id="${dayId}_fats">
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label" for="${dayId}_calories">Calories</label>
+            <input type="number" step="any" class="form-control" name="${dayId}_calories" id="${dayId}_calories">
+          </div>
+        </div>
+      `;
+
+      formContainer.appendChild(section);
+    });
+  </script>
+</body>

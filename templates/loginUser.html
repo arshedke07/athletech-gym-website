@@ -1,0 +1,68 @@
+<style>
+    body {
+        color: black;
+        background: url('https://us.123rf.com/450wm/h4ckermodify/h4ckermodify2304/h4ckermodify230400161/201878567-gym-or-fitness-with-sunset-light-background-for-web-design-template-website.jpg?ver=6') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    /* Center the form and style it */
+    .fitness-form {
+        max-width: 600px;
+        /* Reduce width for better alignment */
+        margin: 100px auto 40px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        /* Align text inside the form to the left */
+    }
+
+    /* Align labels and inputs properly */
+    .fitness-form .form-group {
+        text-align: left;
+        padding-bottom: 10px;
+    }
+
+    /* Make label width consistent and align left */
+    .fitness-form .control-label {
+        text-align: left !important;
+        font-weight: bold;
+    }
+
+    /* Align input fields to the left */
+    .fitness-form .col-sm-8 {
+        text-align: left;
+    }
+
+    /* Add spacing for better readability */
+    .fitness-form h2 {
+        padding: 20px 0;
+        text-align: center;
+    }
+</style>
+
+<form class="form-horizontal fitness-form" action="/loginUser" method="post">
+    <h2 class="text-center">Login To View Your Dashboard</h2>
+
+    <div class="form-group">
+        <label class="control-label col-sm-4" for="email">Email Id:</label>
+        <div class="col-sm-8">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email Id" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-4" for="lastname">Password</label>
+        <div class="col-sm-8">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your Password"
+                required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <button type="submit" class="btn btn-success btn-block">Login</button>
+        </div>
+    </div>
+</form>

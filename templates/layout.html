@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Athletech</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://unpkg.com/htmx.org@2.0.0"></script> -->
+    <!-- <script src="script.js"></script> -->
+</head>
+
+<style>
+    body {
+        padding: 60px;
+    }
+</style>
+
+
+<body>
+    <div id="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Athletech</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Left Nav -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            {{if .UserName}}
+                            <a class="nav-link" href="/userhome">Home</a>
+                            {{else if .TrainerName}}
+                            <a class="nav-link" href="/trainerhome">Home</a>
+                            {{else}}
+                            <a class="nav-link" href="/">Home</a>
+                            {{end}}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Page 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Page 2</a>
+                        </li>
+                    </ul>
+
+                    <!-- Right Nav -->
+                    <ul class="navbar-nav">
+                        {{if or .UserName .TrainerName}}
+                        <!-- User is logged in -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                {{if .UserName}}{{.UserName}}{{else}}{{.TrainerName}}{{end}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                        {{else}}
+                        <!-- Not logged in -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/loginUser"><i class="bi bi-person"></i> Login User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/loginTrainer"><i class="bi bi-person"></i> Login Trainer</a>
+                        </li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class=" container" id="bodyContainer">
+        {{embed}}
+    </div>
+
+</body>
+
+</html>

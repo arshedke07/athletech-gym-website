@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Workout Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            padding-top: 55px;
+            text-align: center;
+        }
+
+        form {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .day-section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .day-section h3 {
+            margin-top: 0;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .exercise-group {
+            margin-bottom: 15px;
+        }
+
+        .add-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 6px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .submit-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: #28a745;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>{{ .Title }}</h1>
+    <form method="POST" action="/create_workout/{{ .Id }}" enctype="multipart/form-data">
+
+        <!-- Days Loop -->
+        <div id="workout-days">
+            <!-- JavaScript will insert days here -->
+        </div>
+
+        <button type="submit" class="submit-btn">Save Workout Plan</button>
+    </form>
+
+    <script>
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        const container = document.getElementById("workout-days");
+
+        days.forEach(day => {
+            const section = document.createElement("div");
+            section.className = "day-section";
+            section.innerHTML = `
+        <h3>${day}</h3>
+        <div class="exercise-list" id="${day.toLowerCase()}-exercises">
+          <div class="exercise-group">
+            <label>Muscle Groups Trained</label>
+            <input type="text" name="${day.toLowerCase()}_muscles">
+
+            <label>Exercise Name</label>
+            <input type="text" name="${day.toLowerCase()}_exercise[]">
+
+            <label>Description / Notes</label>
+            <textarea name="${day.toLowerCase()}_description[]" rows="2"></textarea>
+          </div>
+        </div>
+        <button type="button" class="add-btn" onclick="addExercise('${day.toLowerCase()}')">Add Exercise</button>
+      `;
+            container.appendChild(section);
+        });
+
+        function addExercise(day) {
+            const list = document.getElementById(`${day}-exercises`);
+            const div = document.createElement("div");
+            div.className = "exercise-group";
+            div.innerHTML = `
+        <label>Exercise Name</label>
+        <input type="text" name="${day}_exercise[]">
+
+        <label>Description / Notes</label>
+        <textarea name="${day}_description[]" rows="2"></textarea>
+      `;
+            list.appendChild(div);
+        }
+    </script>
+
+</body>
+
+</html>

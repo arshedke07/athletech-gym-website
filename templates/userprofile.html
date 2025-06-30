@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Fitness Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            background-color: #111;
+            /* fallback in case image fails */
+            background: url('https://media.istockphoto.com/id/1324380130/vector/golden-man-silhouette-with-glow-effect.jpg?s=612x612&w=0&k=20&c=gwxiSkcTE4qKH9s5Bxj-zz88r2B4DBktBMbhUNndSpg=') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #1e1e1e;
+        }
+
+        .profile-container {
+            max-width: 900px;
+            margin: 80px auto;
+            background: rgba(240, 240, 240, 0.95);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-header h2 {
+            font-size: 36px;
+            color: #2c2c2c;
+            margin-bottom: 10px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 40px;
+        }
+
+        .profile-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-item span.label {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 4px;
+        }
+
+        .profile-item span.value {
+            font-size: 16px;
+            color: #222;
+        }
+
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img class="profile-avatar" src="" alt="User Photo" />
+            <h2>{{ .Data.FirstName}} {{ .Data.LastName}}</h2>
+        </div>
+
+        <div class="profile-grid">
+            <div class="profile-item">
+                <span class="label">Email</span>
+                <span class="value">{{ .Data.Email }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Mobile</span>
+                <span class="value">{{ .Data.Mobile }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Age</span>
+                <span class="value">{{ .Data.Preferences.Age }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Gender</span>
+                <span class="value">{{ .Data.Preferences.Gender }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Weight</span>
+                <span class="value">{{ .Data.Preferences.Weight }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Height</span>
+                <span class="value">{{ .Data.Preferences.Height }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Experience</span>
+                <span class="value">{{ .Data.Preferences.Experience }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Goal</span>
+                <span class="value">{{ .Data.Preferences.Goal }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Body Type</span>
+                <span class="value">{{ .Data.Preferences.CurrentBodyType}}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Workout Location</span>
+                <span class="value">{{ .Data.Preferences.GymAccess }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Workout Days/Week</span>
+                <span class="value">{{ .Data.Preferences.DaysAvailable }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Preferred Workout Time</span>
+                <span class="value">{{ .Data.Preferences.WorkoutTimePreference }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Dietary Restrictions</span>
+                <span class="value">{{ .Data.Preferences.DietaryRestrictions}}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Injuries</span>
+                <span class="value">{{ .Data.Preferences.Injuries }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="label">Medical Conditions</span>
+                <span class="value">{{ .Data.Preferences.MedicalConditions }}</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

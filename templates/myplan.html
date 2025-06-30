@@ -1,0 +1,185 @@
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+            url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+        color: white;
+        height: 35vh;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        border-radius: 8px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background-color: #ff4d4d;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #e63946;
+    }
+
+    .features-icon {
+        font-size: 2.5rem;
+        color: #ff4d4d;
+    }
+
+    .section-title {
+        font-weight: bold;
+    }
+</style>
+
+
+<body>
+
+    <!-- Hero Section (Reduced Height) -->
+    <section class="hero">
+        <div class="container text-center">
+            <h1>Welcome to Muscle Builder</h1>
+            <p class="mt-2">Expert-crafted workout & diet plans for muscle growth.</p>
+            <a href="/trainerselect" class="btn btn-primary mt-3">Enroll in New Plan</a>
+        </div>
+    </section>
+
+    <!-- Client Preferences Form -- add this feature later -->
+    <!-- <section class="py-5">
+        <div class="container">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-person-vcard"></i> Your Preferences</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Your Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your name">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Workout Location</label>
+                                <select class="form-select" aria-label="Select workout location">
+                                    <option selected>Select workout location</option>
+                                    <option value="gym">Gym</option>
+                                    <option value="home">Home</option>
+                                    <option value="both">Both Gym & Home</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Dietary Preference</label>
+                                <select class="form-select" aria-label="Select dietary preference">
+                                    <option selected>Select dietary preference</option>
+                                    <option value="nonveg">Non-Vegetarian</option>
+                                    <option value="veg">Vegetarian</option>
+                                    <option value="vegan">Vegan</option>
+                                    <option value="pescatarian">Pescatarian</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Preferred Workout Time</label>
+                                <select class="form-select" aria-label="Select preferred workout time">
+                                    <option selected>Select preferred time</option>
+                                    <option value="morning">Morning</option>
+                                    <option value="afternoon">Afternoon</option>
+                                    <option value="evening">Evening</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Workout Days per Week</label>
+                                <select class="form-select" aria-label="Select number of workout days">
+                                    <option selected>Select number of days</option>
+                                    <option value="3">3 days</option>
+                                    <option value="4">4 days</option>
+                                    <option value="5">5 days</option>
+                                    <option value="6">6 days</option>
+                                    <option value="7">7 days</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Additional Notes</label>
+                            <textarea class="form-control" rows="2"
+                                placeholder="Enter any additional preferences or requirements"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="submit" class="btn btn-primary">Save Preferences</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Features Section -->
+    <section class="py-5" id="plans">
+        <div class="container text-center">
+            <h2 class="section-title mb-4">Your Muscle Building Blueprint</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="p-4 shadow-sm">
+                        <div class="features-icon mb-3">🏋️‍♂️</div>
+                        <h5>My Workouts</h5>
+                        <p>Personalized gym routines for size, strength, and stamina.</p>
+                        <a href="/workoutplans" class="btn btn-primary">View Workout Plans</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-4 shadow-sm">
+                        <div class="features-icon mb-3">🍗</div>
+                        <h5>My Diet Plan</h5>
+                        <p>Scientifically crafted meal plans to fuel muscle growth.</p>
+                        <a href="/dietplans" class="btn btn-primary">View Diet Plans</a>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                    <div class="p-4 shadow-sm">
+                        <div class="features-icon mb-3">🔥</div>
+                        <h5>Stay Motivated</h5>
+                        <p>Daily challenges, community support, and progress tracking.</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Motivation Section -->
+    <section class="bg-dark text-white py-5 text-center">
+        <div class="container">
+            <h2>"The body achieves what the mind believes."</h2>
+            <p class="lead mt-3">Don't wait for motivation. Create it.</p>
+            <!-- <a href="#plans" class="btn btn-outline-light mt-3">View Plans</a> -->
+        </div>
+    </section>
+
+    <footer class="text-center py-4">
+        <small>&copy; 2025 Muscle Builder. All Rights Reserved.</small>
+    </footer>
+
+
+</body>

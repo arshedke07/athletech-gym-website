@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athletech</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .container {
+            overflow-y: auto;
+            height: 100%;
+            width: 100%;
+            /* padding: 20px; */
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .hero {
+            padding: 100px 10px 50px 10px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            padding: 15px;
+            color: #ccc;
+            font-size: 30px;
+        }
+
+        .plans {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .plan-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+        }
+
+        .plan-card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .cta {
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .hero a {
+            padding: 12px 30px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Transform Your Body</h1>
+            <p>Get a personalized diet & workout plan from expert trainers.</p>
+            <!-- <button type="button" a href="/signupform">Get Started</button> -->
+            <a href="/signupform" type="button" class="btn btn-success mx-3">Get Started</a>
+            <a href="/trainerform" type="button" class="btn btn-success">Register as Trainer</a>
+        </div>
+
+        <div>
+            <h2>Plans Offered By Us</h2>
+        </div>
+
+        <div class="plans">
+            <div class="plan-card">💪 <h2>Muscle Gain Plan</h2>
+                <p>Increase strength and muscle mass with structured training and nutrition.</p>
+            </div>
+            <div class="plan-card">🔥 <h2>Fat Loss Plan</h2>
+                <p>Burn fat and get lean with expert-designed workouts and diet.</p>
+            </div>
+            <div class="plan-card">⚡ <h2>Endurance Plan</h2>
+                <p>Boost stamina and cardiovascular health with personalized programs.</p>
+            </div>
+            <div class="plan-card">🏋️ <h2>Strength Training</h2>
+                <p>Build power and resilience with progressive overload training.</p>
+            </div>
+        </div>
+
+        <div class="cta">
+            <h2>Subscribe to Our Daily Newsletter</h2>
+            <p>Enter your email to subscribe.</p>
+            <input type="email" placeholder="Enter your email">
+            <a href="#" class="btn btn-success" type="button">Join Now</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

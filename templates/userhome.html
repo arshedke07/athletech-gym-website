@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athletech</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .container {
+            overflow-y: auto;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .hero {
+            padding: 100px 10px 30px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            padding: 10px;
+            color: #ccc;
+            font-size: 22px;
+        }
+
+        .plan-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            width: 60%;
+            margin: 0 auto 40px;
+        }
+
+        .plan-card h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .plan-card p {
+            font-size: 18px;
+        }
+
+        .button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .contact {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact a {
+            color: #00aced;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome {{.UserName}}</h1>
+            <p>Here is your selected plan:</p>
+        </div>
+
+        <div class="plan-card">
+            <h2>🏋️ Your Training Plan</h2>
+            <p>This plan is tailored to your goals and preferences. Click below to view full details.</p>
+            <a href="/myplan" class="button">View My Plan</a>
+        </div>
+
+        <div class="contact">
+            <h2>Contact Us</h2>
+            <p>Email: <a href="#">support@athletech.com</a></p>
+            <p>Phone: +1 234 567 890</p>
+            <p>Follow us on <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">Twitter</a></p>
+        </div>
+    </div>
+
+    {{if .Success}}
+    <script>
+        alert("{{.Success}}");
+    </script>
+    {{end}}
+
+    {{if .Error}}
+    <script>
+        alert("{{.Error}}");
+    </script>
+    {{end}}
+</body>
+
+</html>

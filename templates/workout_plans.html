@@ -1,0 +1,56 @@
+<style>
+    .workout-card {
+        transition: transform 0.2s;
+        margin-bottom: 20px;
+    }
+
+    .workout-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .workout-time {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .exercise-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .exercise-item {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .exercise-item:last-child {
+        border-bottom: none;
+    }
+</style>
+
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">Weekly Workout Schedule</h1>
+
+        {{range .Data}}
+        <div class="card workout-card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">{{.Day.Name}} - {{ .Day.MuscleGroups}}</h3>
+            </div>
+            <div class="card-body">
+                <div class="workout-time mb-3">
+                    <i class="bi bi-clock"></i> 9:00 AM - 10:30 AM
+                </div>
+                <ul class="exercise-list">
+                    {{range .Exercises}}
+                    <li class="exercise-item">
+                        <strong>{{.Exercise}}</strong> - {{.Description}}
+                    </li>
+                    {{end}}
+                </ul>
+            </div>
+        </div>
+        {{end}}
+    </div>
+</body>
