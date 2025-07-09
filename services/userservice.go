@@ -8,7 +8,7 @@ import (
 
 func AddUserService(user *model.AppUser, profile *model.Preferences) (*model.AppUser, error) {
 	insertstatement := "INSERT INTO app_user (firstname, lastname, password, emailid, mobile) VALUES ($1, $2, $3, $4, $5) RETURNING user_id"
-	insertstatement2 := "INSERT INTO user_profile(user_id, age, height, weight, gender, experience, goal, current_body_type, gym_access, days_available, workout_time_preference, dietary_restrictions, injuries, medical_conditions) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)"
+	insertstatement2 := "INSERT INTO user_profile(user_id, age, height, weight, gender, experience, goal, current_body_type, gym_access, days_available, workout_time_preference, dietary_restrictions, injuries, medical_conditions, created_at, updated_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
 
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {

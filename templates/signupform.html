@@ -60,7 +60,7 @@
         }
 
         button[type="submit"] {
-            width: 100%;
+            width: 70%;
             padding: 14px;
             border: none;
             border-radius: 8px;
@@ -94,167 +94,203 @@
 <form class="form-horizontal fitness-form" action="/signupform" method="post">
     <h2 class="text-center">Start Your Fitness Journey Today</h2>
 
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="firstname">First Name:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter your First name"
-                required>
+    <div id="step1">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="firstname">First Name:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="firstname" name="firstname"
+                    placeholder="Enter your First name" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="lastname">Last Name:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your Last Name"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="email">Email:</label>
+            <div class="col-sm-8">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="password">Set Password:</label>
+            <div class="col-sm-8">
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Enter your Password" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="mobile">Mobile:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter your Mobile Number"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="age">Age:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="age" name="age" placeholder="Enter your Age" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="gender">Gender:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="gender" name="gender" placeholder="Enter your Gender"
+                    required>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8">
+                <button type="button" class="btn btn-success btn-block" onclick="showStep2()">Continue</button>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="lastname">Last Name:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your Last Name"
-                required>
+    <div id="step2" style="display:none;">
+        <!-- Combined Weight Entry -->
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="weight">Weight (kg):</label>
+            <div class="col-sm-4">
+                <input type="number" step="0.01" min="30" max="180" class="form-control" id="weight" name="weight"
+                    placeholder="Current Weight" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="height">Height (cm):</label>
+            <div class="col-sm-8">
+                <input type="number" class="form-control" id="height" name="height" placeholder="Enter your height"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="goal">Goal:</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="goal" name="goal" required>
+                    <option value="">Select your Goals in The Gym</option>
+                    <option value="MuscleGain">Mucle Gain</option>
+                    <option value="FatLoss">Fat Loss</option>
+                    <option value="PowerLifting">Power Lifting</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="experience">Experience:</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="experience" name="experience" required>
+                    <option value="">Select your experience level</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="body_type">Current Body Type:</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="body_type" name="body_type" required>
+                    <option value="">Select your Body Type</option>
+                    <option value="Ectomorph">Ectomorph(Skinny and have trouble gaining fat or muscle)</option>
+                    <option value="Skinny_fat">Skinny Fat</option>
+                    <option value="Mesomorph">Mesomorph(Average build and can lose or gain weight relatively easily)
+                    </option>
+                    <option value="Endomorph">Endomorph(higher body fat percentage and tend to gain weight easily)
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="gym_access">Prefered Place to Workout:</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="gym_access" name="gym_access" required>
+                    <option value="">Select prefered place to workout</option>
+                    <option value="Gym">Gym</option>
+                    <option value="Home">Home</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="days_available">Workout Days Per Week:</label>
+            <div class="col-sm-8">
+                <input type="number" class="form-control" id="days_available" name="days_available"
+                    placeholder="Enter Number of Days" required>
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label class="control-label col-sm-4" for="workout_time_preference">Prefered Workout Time:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="workout_time_preference" name="workout_time_preference"
+                    placeholder="Enter Time of Day" required>
+            </div>
+        </div> -->
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="workout_time_preference">Preferred Workout Time:</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="workout_time_preference" name="workout_time_preference" required>
+                    <option value="">Select time slot</option>
+                    <option value="morning">Morning (6 AM - 9 AM)</option>
+                    <option value="afternoon">Afternoon (12 PM - 3 PM)</option>
+                    <option value="evening">Evening (5 PM - 8 PM)</option>
+                    <option value="night">Night (9 PM - 11 PM)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="dietary_restrictions">Dietary Restrictions:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="dietary_restrictions" name="dietary_restrictions"
+                    placeholder="Enter none if you dont have any" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="injuries">Injuries:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="injuries" name="injuries"
+                    placeholder="Enter none if you dont have any" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="medical_conditions">Medical Conditions</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="medical_conditions" name="medical_conditions"
+                    placeholder="Enter none if you dont have any" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8">
+                <button type="submit" class="btn btn-success btn-block">Register</button>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="email">Email:</label>
-        <div class="col-sm-8">
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="password">Set Password:</label>
-        <div class="col-sm-8">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your Password"
-                required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="gender">Mobile:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter your Mobile Number"
-                required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="age">Age:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="age" name="age" placeholder="Enter your Age" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="weight">Weight (kg):</label>
-        <div class="col-sm-8">
-            <input type="number" step="0.01" min="30" max="180" class="form-control" id="weight" name="weight"
-                placeholder="Enter your weight" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="height">Height (cm):</label>
-        <div class="col-sm-8">
-            <input type="number" class="form-control" id="height" name="height" placeholder="Enter your height"
-                required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="gender">Gender:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="gender" name="gender" placeholder="Enter your Gender" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="experience">Experience:</label>
-        <div class="col-sm-8">
-            <select class="form-control" id="experience" name="experience" required>
-                <option value="">Select your experience level</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="goal">Select Your Goal:</label>
-        <div class="col-sm-8">
-            <select class="form-control" id="goal" name="goal">
-                <option value="">Select Your Goal</option>
-                <option value="Musclegain">Gain Muscle</option>
-                <option value="Fatloss">Lose Fat</option>
-                <option value="Powerlifting">Power Lifting</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="body_type">Current Body Type:</label>
-        <div class="col-sm-8">
-            <select class="form-control" id="body_type" name="body_type" required>
-                <option value="">Select your Body Type</option>
-                <option value="Ectomorph">Ectomorph(Skinny and have trouble gaining fat or muscle)</option>
-                <option value="Skinny_fat">Skinny Fat</option>
-                <option value="Mesomorph">Mesomorph(Average build and can lose or gain weight relatively easily)
-                </option>
-                <option value="Endomorph">Endomorph(higher body fat percentage and tend to gain weight easily)</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="gym_access">Prefered Place to Workout:</label>
-        <div class="col-sm-8">
-            <select class="form-control" id="gym_access" name="gym_access" required>
-                <option value="">Select prefered place to workout</option>
-                <option value="Gym">Gym</option>
-                <option value="Home">Home</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="days_available">Workout Days Per Week:</label>
-        <div class="col-sm-8">
-            <input type="number" class="form-control" id="days_available" name="days_available"
-                placeholder="Enter Number of Days" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="workout_time_preference">Workout Time:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="workout_time_preference" name="workout_time_preference"
-                placeholder="Enter Time of Day" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="dietary_restrictions">Dietary Restrictions:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="dietary_restrictions" name="dietary_restrictions"
-                placeholder="Enter none if you dont have any" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="injuries">Injuries:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="injuries" name="injuries"
-                placeholder="Enter none if you dont have any" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="medical_conditions">Medical Conditions</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="medical_conditions" name="medical_conditions"
-                placeholder="Enter none if you dont have any" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
-            <button type="submit" class="btn btn-success btn-block">Register</button>
-        </div>
-    </div>
 </form>
+
+<script>
+    function showStep2() {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+    }
+</script>

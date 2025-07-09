@@ -40,13 +40,31 @@
             font-size: 22px;
         }
 
+        .card-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+
         .plan-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        /* .plan-card {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 30px;
             border-radius: 10px;
             width: 60%;
             margin: 0 auto 40px;
-        }
+        } */
 
         .plan-card h2 {
             font-size: 28px;
@@ -87,10 +105,18 @@
             <p>Here is your selected plan:</p>
         </div>
 
-        <div class="plan-card">
-            <h2>🏋️ Your Training Plan</h2>
-            <p>This plan is tailored to your goals and preferences. Click below to view full details.</p>
-            <a href="/myplan" class="button">View My Plan</a>
+        <div class="card-row">
+            <div class="plan-card">
+                <h2>🏋️ Your Training Plan</h2>
+                <p>This plan is tailored to your goals and preferences. Click below to view full details.</p>
+                <a href="/myplan" class="button">View My Plan</a>
+            </div>
+
+            <div class="plan-card">
+                <h2>📈 Your Progress Log</h2>
+                <p>Track how far you've come! Check your weight, lifts, running, and more — all in one place.</p>
+                <a href="/progresslog" class="button">View My Progress</a>
+            </div>
         </div>
 
         <div class="contact">

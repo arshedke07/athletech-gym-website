@@ -117,5 +117,12 @@ func main() {
 		return routes.GetUserProfile(c, store)
 	})
 
+	app.Get("/progresslog", func(c *fiber.Ctx) error {
+		return routes.UserProgress(c, store)
+	})
+	app.Post("/progresslog", func(c *fiber.Ctx) error {
+		return routes.UserProgress(c, store)
+	})
+
 	app.Listen(":3000")
 }

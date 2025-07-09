@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/arshedke07/athletech/model"
@@ -26,16 +27,28 @@ func AddUser(c *fiber.Ctx, store session.Store) error {
 			Mobile:    c.FormValue("mobile"),
 		}
 
+		ageStr := c.FormValue("age")
+		age, _ := strconv.Atoi(ageStr)
+
+		heightStr := c.FormValue("height")
+		height, _ := strconv.Atoi(heightStr)
+
+		daysStr := c.FormValue("days_available")
+		days, _ := strconv.Atoi(daysStr)
+
+		weightStr := c.FormValue("weight")
+		weight, _ := strconv.Atoi(weightStr)
+
 		profile := model.Preferences{
-			Age:                   c.FormValue("age"),
-			Height:                c.FormValue("height"),
-			Weight:                c.FormValue("weight"),
+			Age:                   age,
+			Height:                height,
+			Weight:                weight,
 			Gender:                c.FormValue("gender"),
 			Experience:            c.FormValue("experience"),
 			Goal:                  c.FormValue("goal"),
 			CurrentBodyType:       c.FormValue("body_type"),
 			GymAccess:             c.FormValue("gym_access"),
-			DaysAvailable:         c.FormValue("days_available"),
+			DaysAvailable:         days,
 			WorkoutTimePreference: c.FormValue("workout_time_preference"),
 			DietaryRestrictions:   c.FormValue("dietary_restrictions"),
 			Injuries:              c.FormValue("injuries"),
@@ -49,6 +62,8 @@ func AddUser(c *fiber.Ctx, store session.Store) error {
 
 		sess.Set("UserId", data.UserId)
 		sess.Set("Name", data.FirstName+" "+data.LastName)
+
+		fmt.Println(data.UserId)
 
 		return c.Render("userhome", fiber.Map{
 			"Title":    "Athletech",

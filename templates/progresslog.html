@@ -44,47 +44,65 @@
 </head>
 
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">FitTrack</a>
-            <div>
-                <a href="log-metrics.html" class="btn btn-outline-light me-2">Log Metrics</a>
-                <a href="log-workouts.html" class="btn btn-outline-light">Log Workouts</a>
-            </div>
-        </div>
-    </nav>
-
     <!-- Main Container -->
     <div class="container mt-5">
 
-        <h2 class="mb-4">Welcome Back, Arsh 👋</h2>
+        <h2 class="mb-4">Welcome Back, {{ .UserName }} 👋</h2>
 
         <!-- Progress Overview Cards -->
         <div class="row g-4 mb-5">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card shadow-sm p-3">
                     <h6 class="text-muted">Weight</h6>
-                    <h4 class="card-title">72.5 kg</h4>
+                    <h4 class="card-title">{{ if .Data.CurrentWeight }} {{ .Data.CurrentWeight }} kg {{ else }} - {{ end
+                        }}</h4>
                     <p class="mb-1 text-success">⬇️ Lost 4.5 kg in 5 weeks</p>
-                    <small class="text-muted">Starting: 77 kg</small>
+                    <small class="text-muted">Goal: {{ if .Data.WeightGoal }} {{ .Data.WeightGoal }} kg {{ else }} - {{
+                        end }}</small>
+                    <small class="text-muted">Started At: {{ if .Start.CurrentWeight }} {{ .Start.CurrentWeight }} kg {{
+                        else }} - {{
+                        end }}</small>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card shadow-sm p-3">
-                    <h6 class="text-muted">Bench Press</h6>
-                    <h4 class="card-title">85 kg</h4>
+                    <h6 class="text-muted">{{ if .Data.LiftType }} {{ .Data.LiftType }} {{ else }} - {{ end }}</h6>
+                    <h4 class="card-title">{{ if .Data.CurrentLift }} {{ .Data.CurrentLift }} kg {{ else }} - {{ end }}
+                    </h4>
                     <p class="mb-1 text-success">⬆️ +15 kg since start</p>
-                    <small class="text-muted">Started at 70 kg</small>
+                    <small class="text-muted">Goal: {{ if .Data.LiftGoal }} {{ .Data.LiftGoal }} kg {{ else }} - {{
+                        end }}</small>
+                    <small class="text-muted">Started At:{{ if .Start.CurrentLift }} {{ .Start.CurrentLift }} kg {{ else
+                        }} - {{
+                        end }}</small>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card shadow-sm p-3">
-                    <h6 class="text-muted">Running Distance</h6>
-                    <h4 class="card-title">5.2 km</h4>
+                    <h6 class="text-muted">{{ if .Data.CardioType }} {{ .Data.CardioType }} {{ else }} - {{ end }}</h6>
+                    <h4 class="card-title">{{ if .Data.CurrentCardio }} {{ .Data.CurrentCardio }} km {{ else }} - {{
+                        end }}</h4>
                     <p class="mb-1 text-success">⬆️ +2.7 km in 3 weeks</p>
-                    <small class="text-muted">Started at 2.5 km</small>
+                    <small class="text-muted">Goal: {{ if .Data.CardioGoal }} {{ .Data.CardioGoal }} km {{ else }} -
+                        {{
+                        end }}</small>
+                    <small class="text-muted">Started At: {{ if .Start.CurrentCardio }} {{ .Start.CurrentCardio }} km
+                        {{ else }} - {{
+                        end }}</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm p-3">
+                    <h6 class="text-muted">Body Fat Percentage</h6>
+                    <h4 class="card-title">{{ if .Data.CurrentBodyFat }} {{ .Data.CurrentBodyFat }}% {{ else }} - {{
+                        end }}</h4>
+                    <!-- <p class="mb-1 text-success">⬆️ +2.7 km in 3 weeks</p> -->
+                    <small class="text-muted">Goal: {{ if .Data.BodyFatGoal }} {{ .Data.BodyFatGoal }}%
+                        {{ else }} - {{
+                        end }}</small>
+                    <small class="text-muted">Started At: {{ if .Start.CurrentBodyFat }} {{ .Start.CurrentBodyFat }}%
+                        {{ else }} - {{
+                        end }}</small>
                 </div>
             </div>
         </div>
@@ -99,119 +117,83 @@
             </ul>
         </div>
 
-        <!-- Goal Progress Bars -->
-        <div class="card p-4 mb-5 shadow-sm">
-            <h5 class="mb-4">🎯 Goal Progress</h5>
-            <div class="mb-3">
-                <label class="form-label">Weight Loss Goal: Lose 6kg</label>
-                <div class="progress">
-                    <div class="progress-bar bg-success" style="width: 75%;">4.5 / 6 kg</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Bench Goal: Reach 90kg</label>
-                <div class="progress">
-                    <div class="progress-bar bg-info" style="width: 94%;">85 / 90 kg</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Endurance Goal: Run 6 km</label>
-                <div class="progress">
-                    <div class="progress-bar bg-warning" style="width: 87%;">5.2 / 6 km</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Workout Streaks -->
-        <div class="card p-4 mb-5 shadow-sm">
-            <h5 class="mb-3">🔥 Streaks</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">🟢 7-day workout streak</li>
-                <li class="list-group-item">🟢 Logged workouts 21 of last 30 days</li>
-                <li class="list-group-item">🟢 No missed gym days this week!</li>
-            </ul>
-        </div>
-
-        <!-- Profile Update Form -->
+        <!-- Unified Profile & Progress Form -->
         <div class="card p-4 shadow-sm mb-5">
-            <h4 class="mb-4">Update Your Profile</h4>
-            <form>
+            <h4 class="mb-4">🏋️ Update Your Goals In The Gym</h4>
+            <h6>You can fill only those fields you want to focus on and leave others as empty </h6>
+            <br>
+            <form action="/progresslog" method="post">
+
+                <!-- Stats & Goals -->
                 <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="weight" class="form-label">Weight (kg)</label>
-                        <input type="number" class="form-control" id="weight" placeholder="Enter current weight">
+                    <div class="col-md-6">
+                        <label for="weight_current" class="form-label">Current Weight (kg)</label>
+                        <input type="number" class="form-control" id="weight_current" name="weight_current"
+                            placeholder="Enter current weight">
                     </div>
-                    <div class="col-md-4">
-                        <label for="height" class="form-label">Height (cm)</label>
-                        <input type="number" class="form-control" id="height" placeholder="Enter height">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="age" placeholder="Enter age">
+                    <div class="col-md-6">
+                        <label for="weight_goal" class="form-label">Weight Goal (kg)</label>
+                        <input type="number" class="form-control" id="weight_goal" name="weight_goal"
+                            placeholder="Enter weight goal">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="injuries" class="form-label">Injuries</label>
-                    <textarea class="form-control" id="injuries" rows="2"
-                        placeholder="Mention any injuries (if any)"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="medical" class="form-label">Medical Conditions</label>
-                    <textarea class="form-control" id="medical" rows="2"
-                        placeholder="e.g., asthma, diabetes"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="diet" class="form-label">Dietary Restrictions</label>
-                    <textarea class="form-control" id="diet" rows="2"
-                        placeholder="e.g., lactose intolerant, vegan"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="goals" class="form-label">Your Fitness Goals</label>
-                    <textarea class="form-control" id="goals" rows="2"
-                        placeholder="e.g., weight loss, muscle gain, endurance"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label for="access" class="form-label">Gym Access</label>
-                    <select class="form-select" id="access">
+                    <label for="cardio_type" class="form-label">Select Type of Cardio</label>
+                    <select class="form-select" id="cardio_type" name="cardio_type">
                         <option selected disabled>Choose...</option>
-                        <option value="home">Home Gym</option>
-                        <option value="public">Public Gym</option>
-                        <option value="none">No Access</option>
+                        <option value="Running">Running</option>
+                        <option value="Walking">Walking</option>
+                        <option value="Cycling">Cycling</option>
                     </select>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="current_cardio" class="form-label">Current Distance (km)</label>
+                        <input type="number" class="form-control" id="current_cardio" name="current_cardio"
+                            placeholder="Enter current distance">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cardio_goal" class="form-label"> Goal (km)</label>
+                        <input type="number" class="form-control" id="cardio_goal" name="cardio_goal"
+                            placeholder="Enter goal">
+                    </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Days Available</label><br>
-                    <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"
-                            id="mon"><label class="form-check-label" for="mon">Mon</label></div>
-                    <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"
-                            id="tue"><label class="form-check-label" for="tue">Tue</label></div>
-                    <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"
-                            id="wed"><label class="form-check-label" for="wed">Wed</label></div>
-                    <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"
-                            id="thu"><label class="form-check-label" for="thu">Thu</label></div>
-                    <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"
-                            id="fri"><label class="form-check-label" for="fri">Fri</label></div>
-                    <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"
-                            id="sat"><label class="form-check-label" for="sat">Sat</label></div>
-                    <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"
-                            id="sun"><label class="form-check-label" for="sun">Sun</label></div>
+                    <label for="lift_type" class="form-label">Lift Type</label>
+                    <select class="form-select" id="lift_type" name="lift_type">
+                        <option selected disabled>Choose...</option>
+                        <option value="Bench Press">Bench Press</option>
+                        <option value="DeadLift">DeadLift</option>
+                        <option value="Squat">Squat</option>
+                    </select>
                 </div>
 
-                <div class="mb-4">
-                    <label for="time" class="form-label">Preferred Workout Time</label>
-                    <select class="form-select" id="time">
-                        <option selected disabled>Select time slot</option>
-                        <option value="morning">Morning (6 AM - 9 AM)</option>
-                        <option value="afternoon">Afternoon (12 PM - 3 PM)</option>
-                        <option value="evening">Evening (5 PM - 8 PM)</option>
-                        <option value="night">Night (9 PM - 11 PM)</option>
-                    </select>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="current_lift" class="form-label">Current Lift</label>
+                        <input type="number" class="form-control" id="current_lift" name="current_lift"
+                            placeholder="Current">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lift_goal" class="form-label">Lift Goal</label>
+                        <input type="number" class="form-control" id="lift_goal" name="lift_goal" placeholder="Goal">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="current_body_fat" class="form-label">Enter Your Current Body Fat(in %)</label>
+                        <input type="number" class="form-control" id="current_body_fat" name="current_body_fat"
+                            placeholder="Enter current Body Fat">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="body_fat_goal" class="form-label">Enter Your Body Fat Goal(in %)</label>
+                        <input type="number" class="form-control" id="body_fat_goal" name="body_fat_goal"
+                            placeholder="Your Body Fat Goal">
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update Profile</button>
@@ -219,7 +201,6 @@
         </div>
 
     </div>
-
 </body>
 
 </html>

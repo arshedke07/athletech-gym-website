@@ -11,15 +11,15 @@ type AppUser struct {
 }
 
 type Preferences struct {
-	Age                   string
-	Height                string
-	Weight                string
+	Age                   int
+	Height                int
+	Weight                int
 	Gender                string
 	Experience            string
 	Goal                  string
 	CurrentBodyType       string
 	GymAccess             string
-	DaysAvailable         string
+	DaysAvailable         int
 	WorkoutTimePreference string
 	DietaryRestrictions   string
 	Injuries              string
