@@ -6,9 +6,10 @@ import (
 )
 
 func MyPlanRoute(c *fiber.Ctx, store *session.Store) error {
-	sess, _ := store.Get(c)
+	// sess, _ := store.Get(c)
+	userName := c.Locals("UserName")
 	return c.Render("myplan", fiber.Map{
 		"Title":    "Athletech",
-		"UserName": sess.Get("Name"),
+		"UserName": userName,
 	}, "layout")
 }

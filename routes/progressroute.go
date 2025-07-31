@@ -17,8 +17,9 @@ func nilIfEmpty(s string) *string {
 
 func UserProgress(c *fiber.Ctx, store *session.Store) error {
 	if c.Method() == "GET" {
-		sess, _ := store.Get(c)
-		id := sess.Get("UserId")
+		// sess, _ := store.Get(c)
+		// id := sess.Get("UserId")
+		id := c.Locals("UserId")
 		val, ok := id.(int)
 		if !ok {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -33,14 +34,15 @@ func UserProgress(c *fiber.Ctx, store *session.Store) error {
 
 		return c.Render("progresslog", fiber.Map{
 			"Title":    "My Progress Log",
-			"UserName": sess.Get("Name"),
+			"UserName": c.Locals("UserName"),
 			"Data":     data,
 			"Start":    start,
 		}, "layout")
 	} else if c.Method() == "POST" {
-		sess, _ := store.Get(c)
-		id := sess.Get("UserId")
+		// sess, _ := store.Get(c)
+		// id := sess.Get("UserId")
 
+		id := c.Locals("UserId")
 		val, ok := id.(int)
 		if !ok {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -75,7 +77,7 @@ func UserProgress(c *fiber.Ctx, store *session.Store) error {
 			"Title":    "User Progress",
 			"Data":     data,
 			"Start":    start,
-			"UserName": sess.Get("Name"),
+			"UserName": c.Locals("UserName"),
 		}, "layout")
 	}
 

@@ -13,9 +13,17 @@ func CreateWorkoutRoute(c *fiber.Ctx, store *session.Store) error {
 	if c.Method() == "GET" {
 		id := c.Params("id")
 
+		userName, ok := c.Locals("UserName").(string)
+		if !ok {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Cannot Convert UserName",
+			})
+		}
+
 		return c.Render("create_workout", fiber.Map{
-			"Title": "Create Workout Plan For UserName",
-			"Id":    id,
+			"Title":       "Create Workout Plan",
+			"TrainerName": userName,
+			"Id":          id,
 		}, "layout")
 	} else if c.Method() == "POST" {
 		sess, _ := store.Get(c)

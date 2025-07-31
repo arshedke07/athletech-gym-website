@@ -9,7 +9,7 @@ import (
 )
 
 func GetUserProfile(c *fiber.Ctx, store *session.Store) error {
-	sess, _ := store.Get(c)
+	// sess, _ := store.Get(c)
 
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
@@ -24,6 +24,6 @@ func GetUserProfile(c *fiber.Ctx, store *session.Store) error {
 	return c.Render("userprofile", fiber.Map{
 		"Title":       "User Profile",
 		"Data":        data,
-		"TrainerName": sess.Get("Name"),
+		"TrainerName": c.Locals("UserName"),
 	}, "layout")
 }

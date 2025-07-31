@@ -13,7 +13,7 @@ type AppUser struct {
 type Preferences struct {
 	Age                   int
 	Height                int
-	Weight                int
+	Weight                float32
 	Gender                string
 	Experience            string
 	Goal                  string

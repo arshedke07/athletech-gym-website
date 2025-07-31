@@ -1,12 +1,16 @@
 package main
 
 import (
+	"log"
+
 	"github.com/arshedke07/athletech/routes"
 	"github.com/arshedke07/athletech/services"
+	"github.com/arshedke07/athletech/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/storage/redis"
 	"github.com/gofiber/template/html/v2"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -25,6 +29,12 @@ func main() {
 		Database: 0,  // optional
 	})
 
+	// function to load	.env file into my go app
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	store := session.New(session.Config{
 		Storage: redisStore,
 	})
@@ -38,15 +48,6 @@ func main() {
 	})
 	app.Get("/trainerform", routes.AddTrainer)
 	app.Post("/trainerform", routes.AddTrainer)
-	app.Get("/myplan", func(c *fiber.Ctx) error {
-		return routes.MyPlanRoute(c, store)
-	})
-	app.Get("/workoutplans", func(c *fiber.Ctx) error {
-		return routes.WorkoutPlanRoute(c, store)
-	})
-	app.Get("/dietplans", func(c *fiber.Ctx) error {
-		return routes.DietPlanRoute(c, store)
-	})
 	app.Get("/loginUser", func(c *fiber.Ctx) error {
 		return routes.LoginUserRoute(c, store)
 	})
@@ -58,6 +59,19 @@ func main() {
 	})
 	app.Post("/loginTrainer", func(c *fiber.Ctx) error {
 		return routes.LoginTrainerRoute(c, store)
+	})
+
+	// app.Use() to apply middleware for all the protected routes below
+	app.Use(utils.Validate())
+
+	app.Get("/myplan", func(c *fiber.Ctx) error {
+		return routes.MyPlanRoute(c, store)
+	})
+	app.Get("/workoutplans", func(c *fiber.Ctx) error {
+		return routes.WorkoutPlanRoute(c, store)
+	})
+	app.Get("/dietplans", func(c *fiber.Ctx) error {
+		return routes.DietPlanRoute(c, store)
 	})
 	app.Get("/create_workout/:id", func(c *fiber.Ctx) error {
 		return routes.CreateWorkoutRoute(c, store)
@@ -78,27 +92,30 @@ func main() {
 		return routes.TrainerSelectRoute(c, store)
 	})
 	app.Get("/userhome", func(c *fiber.Ctx) error {
-		sess, _ := store.Get(c)
-		name := sess.Get("Name")
+		// sess, _ := store.Get(c)
+		// name := sess.Get("Name")
 
-		successMsg := sess.Get("success")
-		errorMsg := sess.Get("error")
+		// successMsg := sess.Get("success")
+		// errorMsg := sess.Get("error")
 
-		// Clear the messages after reading
-		sess.Delete("success")
-		sess.Delete("error")
-		sess.Save()
+		// // Clear the messages after reading
+		// sess.Delete("success")
+		// sess.Delete("error")
+		// sess.Save()
+
+		UserName := c.Locals("UserName")
 
 		return c.Render("userhome", fiber.Map{
-			"Success":  successMsg,
-			"Error":    errorMsg,
-			"UserName": name,
+			// "Success":  successMsg,
+			// "Error":    errorMsg,
+			"UserName": UserName,
 		}, "layout")
 	})
 	app.Get("/trainerhome", func(c *fiber.Ctx) error {
-		sess, _ := store.Get(c)
+		// sess, _ := store.Get(c)
 
-		id := sess.Get("TrainerId")
+		// id := sess.Get("TrainerId")
+		id := c.Locals("UserId")
 		val := id.(int)
 
 		data, err := services.GetPendingUsers(val)
@@ -109,7 +126,7 @@ func main() {
 		return c.Render("trainerhome", fiber.Map{
 			"Title":       "Athletech",
 			"Data":        data,
-			"TrainerName": sess.Get("Name"),
+			"TrainerName": c.Locals("UserName"),
 		}, "layout")
 	})
 

@@ -11,18 +11,19 @@ import (
 )
 
 func CreateDietRoute(c *fiber.Ctx, store *session.Store) error {
-	sess, _ := store.Get(c)
+	// sess, _ := store.Get(c)
 
 	if c.Method() == "GET" {
 		id := c.Params("id")
 
+		userName := c.Locals("UserName")
+
 		return c.Render("create_diet", fiber.Map{
 			"Title":    "Athletech",
-			"UserName": sess.Get("Name"),
+			"UserName": userName,
 			"UserId":   id,
 		}, "layout")
 	} else if c.Method() == "POST" {
-		sess, _ := store.Get(c)
 		id := c.Params("id")
 		userId, err := strconv.Atoi(id)
 		if err != nil {
@@ -70,7 +71,7 @@ func CreateDietRoute(c *fiber.Ctx, store *session.Store) error {
 			}
 		}
 
-		val := sess.Get("TrainerId") // interface{}
+		val := c.Locals("UserId") // interface{}
 		str := fmt.Sprintf("%v", val)
 		intVal, err := strconv.Atoi(str)
 		if err != nil {
@@ -85,7 +86,7 @@ func CreateDietRoute(c *fiber.Ctx, store *session.Store) error {
 
 		return c.Render("trainerhome", fiber.Map{
 			"Title":       "Athletech",
-			"TrainerName": sess.Get("Name"),
+			"TrainerName": c.Locals("UserName"),
 			"Success":     true,
 			"message":     "Diet Saved Successfully",
 			"Data":        data,

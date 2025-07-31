@@ -1,11 +1,12 @@
 package routes
 
 import (
-	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/arshedke07/athletech/model"
 	"github.com/arshedke07/athletech/services"
+	"github.com/arshedke07/athletech/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	_ "github.com/lib/pq"
@@ -17,12 +18,16 @@ func AddUser(c *fiber.Ctx, store session.Store) error {
 			"Title": "Athletech",
 		}, "layout")
 	} else if c.Method() == "POST" {
-		sess, _ := store.Get(c)
+		// hash the password and store it in database
+		hashedPassword, err := utils.GeneratePassword(c.FormValue("password"))
+		if err != nil {
+			return err
+		}
 
 		user := model.AppUser{
 			FirstName: c.FormValue("firstname"),
 			LastName:  c.FormValue("lastname"),
-			Password:  c.FormValue("password"),
+			Password:  string(hashedPassword),
 			Email:     c.FormValue("email"),
 			Mobile:    c.FormValue("mobile"),
 		}
@@ -42,7 +47,7 @@ func AddUser(c *fiber.Ctx, store session.Store) error {
 		profile := model.Preferences{
 			Age:                   age,
 			Height:                height,
-			Weight:                weight,
+			Weight:                float32(weight),
 			Gender:                c.FormValue("gender"),
 			Experience:            c.FormValue("experience"),
 			Goal:                  c.FormValue("goal"),
@@ -59,15 +64,27 @@ func AddUser(c *fiber.Ctx, store session.Store) error {
 		if err != nil {
 			return err
 		}
+		// generate token after successful sign up
+		token, tokenErr := utils.GenerateToken(data.UserId, data.FirstName+" "+data.LastName, "none")
+		if tokenErr != nil {
+			return tokenErr
+		}
 
-		sess.Set("UserId", data.UserId)
-		sess.Set("Name", data.FirstName+" "+data.LastName)
+		c.Cookie(&fiber.Cookie{
+			Name:     "jwt",
+			Value:    token,
+			Expires:  time.Now().Add(24 * time.Hour), // match token expiry
+			HTTPOnly: true,                           // prevent JS access (protects from XSS)
+			Secure:   true,                           // send only over HTTPS
+			SameSite: "Strict",                       // or "Lax" to balance CSRF protection and UX
+		})
 
-		fmt.Println(data.UserId)
+		// sess.Set("UserId", data.UserId)
+		// sess.Set("Name", data.FirstName+" "+data.LastName)
 
 		return c.Render("userhome", fiber.Map{
 			"Title":    "Athletech",
-			"UserName": sess.Get("Name"),
+			"UserName": data.FirstName + " " + data.LastName,
 		}, "layout")
 	}
 	return nil
@@ -81,13 +98,18 @@ func AddTrainer(c *fiber.Ctx) error {
 	} else if c.Method() == "POST" {
 		age, _ := strconv.Atoi(c.FormValue("age"))
 
+		hashedPassword, err := utils.GeneratePassword(c.FormValue("password"))
+		if err != nil {
+			return err
+		}
+
 		user := model.Trainer{
 			FirstName:      c.FormValue("firstname"),
 			LastName:       c.FormValue("lastname"),
 			Age:            age,
 			Qualifications: c.FormValue("qualifications"),
 			Gender:         c.FormValue("gender"),
-			Password:       c.FormValue("password"),
+			Password:       string(hashedPassword),
 			Email:          c.FormValue("email"),
 			Mobile:         c.FormValue("mobile"),
 		}
@@ -96,6 +118,20 @@ func AddTrainer(c *fiber.Ctx) error {
 		if err != nil {
 			return err
 		}
+
+		token, tokenErr := utils.GenerateToken(data.Id, data.FirstName+" "+data.LastName, "none")
+		if tokenErr != nil {
+			return tokenErr
+		}
+
+		c.Cookie(&fiber.Cookie{
+			Name:     "jwt",
+			Value:    token,
+			Expires:  time.Now().Add(24 * time.Hour), // match token expiry
+			HTTPOnly: true,                           // prevent JS access (protects from XSS)
+			Secure:   true,                           // send only over HTTPS
+			SameSite: "Strict",                       // or "Lax" to balance CSRF protection and UX
+		})
 
 		return c.Render("trainerhome", fiber.Map{
 			"Title":       "Athletech",

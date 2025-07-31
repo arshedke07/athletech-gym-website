@@ -15,7 +15,7 @@ type Payload struct {
 
 func TrainerSelectRoute(c *fiber.Ctx, store *session.Store) error {
 	if c.Method() == "GET" {
-		sess, _ := store.Get(c)
+		// sess, _ := store.Get(c)
 
 		data, err := services.GetAllTrainers()
 		if err != nil {
@@ -24,13 +24,14 @@ func TrainerSelectRoute(c *fiber.Ctx, store *session.Store) error {
 		return c.Render("trainerselect", fiber.Map{
 			"Title":    "Select Trainer of your Choice",
 			"Data":     data,
-			"UserName": sess.Get("Name"),
+			"UserName": c.Locals("UserName"),
 		}, "layout")
 	} else if c.Method() == "POST" {
-		sess, err := store.Get(c)
-		fmt.Println(err)
+		// sess, err := store.Get(c)
+		// fmt.Println(err)
 
-		id := sess.Get("UserId")
+		// id := sess.Get("UserId")
+		id := c.Locals("UserId")
 		fmt.Println(id)
 		str := fmt.Sprintf("%v", id) // converted id variable to string and then convert to int
 		i, err := strconv.Atoi(str)
@@ -63,7 +64,7 @@ func TrainerSelectRoute(c *fiber.Ctx, store *session.Store) error {
 			"Title":    "Athletech",
 			"Success":  true,
 			"Message":  "Trainer Selected Successfully",
-			"UserName": sess.Get("Name"),
+			"UserName": c.Locals("UserName"),
 		}, "layout")
 	}
 	return nil

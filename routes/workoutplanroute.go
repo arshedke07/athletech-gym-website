@@ -9,8 +9,9 @@ import (
 )
 
 func WorkoutPlanRoute(c *fiber.Ctx, store *session.Store) error {
-	sess, _ := store.Get(c)
-	id := sess.Get("UserId")
+	// sess, _ := store.Get(c)
+	// id := sess.Get("UserId")
+	id := c.Locals("UserId")
 	value, ok := id.(int)
 	if !ok {
 		fmt.Println("variable is not an int")
@@ -24,6 +25,6 @@ func WorkoutPlanRoute(c *fiber.Ctx, store *session.Store) error {
 	return c.Render("workout_plans", fiber.Map{
 		"Title":       "Workout Plans",
 		"Data":        data,
-		"TrainerName": sess.Get("Name"),
+		"TrainerName": c.Locals("UserName"),
 	}, "layout")
 }
