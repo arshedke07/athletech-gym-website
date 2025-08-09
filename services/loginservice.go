@@ -10,7 +10,7 @@ import (
 var connectionstring string = "host=localhost port=5432 user=postgres password=1234 dbname=athletech sslmode=disable"
 
 func LoginUserService(emailid string, password string) (*model.AppUser, error) {
-	selectstatement := "SELECT user_id, firstname, lastname, password, emailid, mobile FROM app_user WHERE emailid = $1"
+	selectstatement := "SELECT user_id, firstname, lastname, password, emailid, mobile, role FROM app_user WHERE emailid = $1"
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {
 		return nil, err
@@ -21,7 +21,7 @@ func LoginUserService(emailid string, password string) (*model.AppUser, error) {
 	var user model.AppUser
 
 	row := db.QueryRow(selectstatement, emailid)
-	err = row.Scan(&user.UserId, &user.FirstName, &user.LastName, &user.Password, &user.Email, &user.Mobile)
+	err = row.Scan(&user.UserId, &user.FirstName, &user.LastName, &user.Password, &user.Email, &user.Mobile, &user.Role)
 	if err != nil {
 		return nil, err
 	}
@@ -35,22 +35,22 @@ func LoginUserService(emailid string, password string) (*model.AppUser, error) {
 	return &user, nil
 }
 
-func LoginTrainerService(emailid string, password string) (*model.Trainer, error) {
-	selectstatement := "SELECT trainer_id, firstname, lastname, age, gender, qualifications, email_id, password, mobile FROM app_trainer WHERE email_id = $1 AND password = $2"
-	db, err := sql.Open("postgres", connectionstring)
-	if err != nil {
-		return nil, err
-	}
+// func LoginTrainerService(emailid string, password string) (*model.Trainer, error) {
+// 	selectstatement := "SELECT trainer_id, firstname, lastname, age, gender, qualifications, email_id, password, mobile FROM app_trainer WHERE email_id = $1 AND password = $2"
+// 	db, err := sql.Open("postgres", connectionstring)
+// 	if err != nil {
+// 		return nil, err
+// 	}
 
-	defer db.Close()
+// 	defer db.Close()
 
-	var user model.Trainer
+// 	var user model.Trainer
 
-	row := db.QueryRow(selectstatement, emailid, password)
-	err = row.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Age, &user.Gender, &user.Qualifications, &user.Email, &user.Password, &user.Mobile)
-	if err != nil {
-		return nil, err
-	}
+// 	row := db.QueryRow(selectstatement, emailid, password)
+// 	err = row.Scan(&user.Id, &user.FirstName, &user.LastName, &user.Age, &user.Gender, &user.Qualifications, &user.Email, &user.Password, &user.Mobile)
+// 	if err != nil {
+// 		return nil, err
+// 	}
 
-	return &user, nil
-}
+// 	return &user, nil
+// }

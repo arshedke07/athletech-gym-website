@@ -1,16 +1,17 @@
 package model
 
 type AppUser struct {
-	UserId      int
-	FirstName   string
-	LastName    string
-	Password    string
-	Email       string
-	Mobile      string
-	Preferences Preferences
+	UserId    int
+	FirstName string
+	LastName  string
+	Password  string
+	Email     string
+	Mobile    string
+	Role      string
 }
 
-type Preferences struct {
+type UserProfile struct {
+	User                  AppUser
 	Age                   int
 	Height                int
 	Weight                float32
@@ -24,4 +25,17 @@ type Preferences struct {
 	DietaryRestrictions   string
 	Injuries              string
 	MedicalConditions     string
+}
+
+type TrainerProfile struct {
+	User           AppUser
+	Age            int
+	Gender         string
+	Specialization string
+	Experience     string
+	Languages      string
+	City           string
+	State          string
+	SocialMedia    string
+	Description    string
 }

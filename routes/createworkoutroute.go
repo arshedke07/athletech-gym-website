@@ -6,10 +6,9 @@ import (
 
 	"github.com/arshedke07/athletech/services"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
-func CreateWorkoutRoute(c *fiber.Ctx, store *session.Store) error {
+func CreateWorkoutRoute(c *fiber.Ctx) error {
 	if c.Method() == "GET" {
 		id := c.Params("id")
 
@@ -26,7 +25,6 @@ func CreateWorkoutRoute(c *fiber.Ctx, store *session.Store) error {
 			"Id":          id,
 		}, "layout")
 	} else if c.Method() == "POST" {
-		sess, _ := store.Get(c)
 		idStr := c.Params("id")
 
 		id, err := strconv.Atoi(idStr)
@@ -83,7 +81,7 @@ func CreateWorkoutRoute(c *fiber.Ctx, store *session.Store) error {
 			})
 		}
 
-		val := sess.Get("TrainerId") // interface{}
+		val := c.Locals("UserId") // interface{}
 		str := fmt.Sprintf("%v", val)
 		intVal, err := strconv.Atoi(str)
 		if err != nil {
@@ -98,7 +96,7 @@ func CreateWorkoutRoute(c *fiber.Ctx, store *session.Store) error {
 
 		return c.Render("trainerhome", fiber.Map{
 			"Title":       "Athletech",
-			"TrainerName": sess.Get("Name"),
+			"TrainerName": c.Locals("UserName"),
 			"Success":     true,
 			"message":     "Workout Saved Successfully",
 			"Data":        data,

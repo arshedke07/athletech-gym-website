@@ -6,8 +6,8 @@ import (
 	"github.com/arshedke07/athletech/model"
 )
 
-func AddUserService(user *model.AppUser, profile *model.Preferences) (*model.AppUser, error) {
-	insertstatement := "INSERT INTO app_user (firstname, lastname, password, emailid, mobile) VALUES ($1, $2, $3, $4, $5) RETURNING user_id"
+func AddUserService(profile *model.UserProfile) (*model.AppUser, error) {
+	insertstatement := "INSERT INTO app_user (firstname, lastname, password, emailid, mobile, role) VALUES ($1, $2, $3, $4, $5, $6) RETURNING user_id"
 	insertstatement2 := "INSERT INTO user_profile(user_id, age, height, weight, gender, experience, goal, current_body_type, gym_access, days_available, workout_time_preference, dietary_restrictions, injuries, medical_conditions, created_at, updated_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
 
 	db, err := sql.Open("postgres", connectionstring)
@@ -19,7 +19,7 @@ func AddUserService(user *model.AppUser, profile *model.Preferences) (*model.App
 
 	var id int
 
-	row := db.QueryRow(insertstatement, user.FirstName, user.LastName, user.Password, user.Email, user.Mobile)
+	row := db.QueryRow(insertstatement, profile.User.FirstName, profile.User.LastName, profile.User.Password, profile.User.Email, profile.User.Mobile, profile.User.Role)
 	scanErr := row.Scan(&id)
 	if scanErr != nil {
 		return nil, scanErr
@@ -32,17 +32,18 @@ func AddUserService(user *model.AppUser, profile *model.Preferences) (*model.App
 
 	newUser := model.AppUser{
 		UserId:    id,
-		FirstName: user.FirstName,
-		LastName:  user.LastName,
-		Email:     user.Email,
-		Mobile:    user.Mobile,
+		FirstName: profile.User.FirstName,
+		LastName:  profile.User.LastName,
+		Email:     profile.User.Email,
+		Mobile:    profile.User.Mobile,
+		Role:      profile.User.Role,
 	}
 
 	return &newUser, nil
 }
 
 func UpdateUserService(userId int, trainerId int) error {
-	updatestatement := "UPDATE app_user SET trainer = $1 WHERE user_id = $2"
+	updatestatement := "UPDATE user_profile SET trainer_id = $1 WHERE user_id = $2"
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {
 		return err
@@ -58,7 +59,7 @@ func UpdateUserService(userId int, trainerId int) error {
 	return nil
 }
 
-func GetUserById(userId int) (*model.AppUser, error) {
+func GetUserById(userId int) (*model.UserProfile, error) {
 	selectstatement := "SELECT firstname, lastname, emailid, mobile, age, height, weight, gender, experience, goal, current_body_type, gym_access, days_available, workout_time_preference, dietary_restrictions, injuries, medical_conditions FROM app_user NATURAL JOIN user_profile WHERE user_id = $1"
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {
@@ -69,26 +70,26 @@ func GetUserById(userId int) (*model.AppUser, error) {
 
 	row := db.QueryRow(selectstatement, userId)
 
-	user := model.AppUser{}
+	user := model.UserProfile{}
 
 	scanErr := row.Scan(
-		&user.FirstName,
-		&user.LastName,
-		&user.Email,
-		&user.Mobile,
-		&user.Preferences.Age,
-		&user.Preferences.Height,
-		&user.Preferences.Weight,
-		&user.Preferences.Gender,
-		&user.Preferences.Experience,
-		&user.Preferences.Goal,
-		&user.Preferences.CurrentBodyType,
-		&user.Preferences.GymAccess,
-		&user.Preferences.DaysAvailable,
-		&user.Preferences.WorkoutTimePreference,
-		&user.Preferences.DietaryRestrictions,
-		&user.Preferences.Injuries,
-		&user.Preferences.MedicalConditions,
+		&user.User.FirstName,
+		&user.User.LastName,
+		&user.User.Email,
+		&user.User.Mobile,
+		&user.Age,
+		&user.Height,
+		&user.Weight,
+		&user.Gender,
+		&user.Experience,
+		&user.Goal,
+		&user.CurrentBodyType,
+		&user.GymAccess,
+		&user.DaysAvailable,
+		&user.WorkoutTimePreference,
+		&user.DietaryRestrictions,
+		&user.Injuries,
+		&user.MedicalConditions,
 	)
 	if scanErr != nil {
 		return nil, scanErr

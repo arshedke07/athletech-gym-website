@@ -4,7 +4,6 @@ import (
 	"github.com/arshedke07/athletech/model"
 	"github.com/arshedke07/athletech/services"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
 func nilIfEmpty(s string) *string {
@@ -15,10 +14,8 @@ func nilIfEmpty(s string) *string {
 	return &s
 }
 
-func UserProgress(c *fiber.Ctx, store *session.Store) error {
+func UserProgress(c *fiber.Ctx) error {
 	if c.Method() == "GET" {
-		// sess, _ := store.Get(c)
-		// id := sess.Get("UserId")
 		id := c.Locals("UserId")
 		val, ok := id.(int)
 		if !ok {
@@ -39,9 +36,6 @@ func UserProgress(c *fiber.Ctx, store *session.Store) error {
 			"Start":    start,
 		}, "layout")
 	} else if c.Method() == "POST" {
-		// sess, _ := store.Get(c)
-		// id := sess.Get("UserId")
-
 		id := c.Locals("UserId")
 		val, ok := id.(int)
 		if !ok {

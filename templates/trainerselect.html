@@ -24,7 +24,18 @@
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
-            padding: 1.5rem;
+            /* padding: 1.5rem; */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card-body button {
+            margin-top: auto;
+            /* Push button to bottom */
         }
 
         .card:hover {
@@ -49,14 +60,18 @@
                 <div class="card">
                     <img src="https://via.placeholder.com/250x200" class="card-img-top" alt="Person Image">
                     <div class="card-body">
-                        <h5 class="card-title">{{.FirstName}} {{.LastName}}</h5>
+                        <h5 class="card-title">{{.User.FirstName}} {{.User.LastName}}</h5>
                         <p class="card-text">Gender: {{ .Gender }}</p>
-                        <p class="card-text">Qualifications: {{.Qualifications}}</p>
-                        <p class="card-text">Email: {{.Email}}</p>
-                        <p class="card-text">Mobile: {{.Mobile}}</p>
+                        <p class="card-text">Specialization: {{.Specialization}}</p>
+                        <p class="card-text">Experience: {{.Experience}}</p>
+                        <p class="card-text">Languages: {{.Languages}}</p>
+                        <p class="card-text">Email: {{.User.Email}}</p>
+                        <p class="card-text">Mobile: {{.User.Mobile}}</p>
+                        <p class="card-text">About The Trainer: {{.Description}}</p>
+                        <input type="hidden" id="trainer_id_{{.User.UserId}}" value="{{ .User.UserId }}">
+                        <button type="button" class="btn btn-primary w-100 mt-2"
+                            onclick="sendData('{{ .User.UserId }}')">Select</button>
                     </div>
-                    <input type="hidden" id="trainer_id_{{.Id}}" value="{{ .Id }}">
-                    <button class="btn btn-primary" onclick="sendData('{{ .Id }}')">Select</button>
                 </div>
             </div>
             {{end}}

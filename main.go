@@ -7,8 +7,6 @@ import (
 	"github.com/arshedke07/athletech/services"
 	"github.com/arshedke07/athletech/utils"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
-	"github.com/gofiber/storage/redis"
 	"github.com/gofiber/template/html/v2"
 	"github.com/joho/godotenv"
 )
@@ -22,12 +20,12 @@ func main() {
 	})
 
 	// Initialize redis storage
-	redisStore := redis.New(redis.Config{
-		Host:     "localhost",
-		Port:     6379,
-		Password: "", // optional
-		Database: 0,  // optional
-	})
+	// redisStore := redis.New(redis.Config{
+	// 	Host:     "localhost",
+	// 	Port:     6379,
+	// 	Password: "", // optional
+	// 	Database: 0,  // optional
+	// })
 
 	// function to load	.env file into my go app
 	err := godotenv.Load()
@@ -35,86 +33,52 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	store := session.New(session.Config{
-		Storage: redisStore,
-	})
-
+	// store := session.New(session.Config{
+	// 	Storage: redisStore,
+	// })
+	// these are the basic routes accessible to all
 	app.Get("/", routes.HomeRoute)
-	app.Get("/signupform", func(c *fiber.Ctx) error {
-		return routes.AddUser(c, *store)
-	})
-	app.Post("/signupform", func(c *fiber.Ctx) error {
-		return routes.AddUser(c, *store)
-	})
+	app.Get("/signupform", routes.AddUser)
+	app.Post("/signupform", routes.AddUser)
+
+	app.Get("/loginUser", routes.LoginUserRoute)
+	app.Post("/loginUser", routes.LoginUserRoute)
+	app.Get("/logout", routes.LogoutRoute)
+
 	app.Get("/trainerform", routes.AddTrainer)
 	app.Post("/trainerform", routes.AddTrainer)
-	app.Get("/loginUser", func(c *fiber.Ctx) error {
-		return routes.LoginUserRoute(c, store)
-	})
-	app.Post("/loginUser", func(c *fiber.Ctx) error {
-		return routes.LoginUserRoute(c, store)
-	})
-	app.Get("/loginTrainer", func(c *fiber.Ctx) error {
-		return routes.LoginTrainerRoute(c, store)
-	})
-	app.Post("/loginTrainer", func(c *fiber.Ctx) error {
-		return routes.LoginTrainerRoute(c, store)
-	})
 
-	// app.Use() to apply middleware for all the protected routes below
-	app.Use(utils.Validate())
+	// below these are all the user routes
 
-	app.Get("/myplan", func(c *fiber.Ctx) error {
-		return routes.MyPlanRoute(c, store)
-	})
-	app.Get("/workoutplans", func(c *fiber.Ctx) error {
-		return routes.WorkoutPlanRoute(c, store)
-	})
-	app.Get("/dietplans", func(c *fiber.Ctx) error {
-		return routes.DietPlanRoute(c, store)
-	})
-	app.Get("/create_workout/:id", func(c *fiber.Ctx) error {
-		return routes.CreateWorkoutRoute(c, store)
-	})
-	app.Post("/create_workout/:id", func(c *fiber.Ctx) error {
-		return routes.CreateWorkoutRoute(c, store)
-	})
-	app.Get("/create_diet/:id", func(c *fiber.Ctx) error {
-		return routes.CreateDietRoute(c, store)
-	})
-	app.Post("/create_diet/:id", func(c *fiber.Ctx) error {
-		return routes.CreateDietRoute(c, store)
-	})
-	app.Get("/trainerselect", func(c *fiber.Ctx) error {
-		return routes.TrainerSelectRoute(c, store)
-	})
-	app.Post("/trainerselect", func(c *fiber.Ctx) error {
-		return routes.TrainerSelectRoute(c, store)
-	})
-	app.Get("/userhome", func(c *fiber.Ctx) error {
-		// sess, _ := store.Get(c)
-		// name := sess.Get("Name")
+	app.Get("/myplan", utils.Validate(), utils.UserOnly(), routes.MyPlanRoute)
 
-		// successMsg := sess.Get("success")
-		// errorMsg := sess.Get("error")
+	app.Get("/workoutplans", utils.Validate(), utils.UserOnly(), routes.WorkoutPlanRoute)
 
-		// // Clear the messages after reading
-		// sess.Delete("success")
-		// sess.Delete("error")
-		// sess.Save()
+	app.Get("/dietplans", utils.Validate(), utils.UserOnly(), routes.DietPlanRoute)
 
+	app.Get("/userhome", utils.Validate(), utils.UserOnly(), func(c *fiber.Ctx) error {
 		UserName := c.Locals("UserName")
 
 		return c.Render("userhome", fiber.Map{
-			// "Success":  successMsg,
-			// "Error":    errorMsg,
 			"UserName": UserName,
 		}, "layout")
 	})
-	app.Get("/trainerhome", func(c *fiber.Ctx) error {
-		// sess, _ := store.Get(c)
 
-		// id := sess.Get("TrainerId")
+	app.Get("/trainerselect", utils.Validate(), utils.UserOnly(), routes.TrainerSelectRoute)
+	app.Post("/trainerselect", utils.Validate(), utils.UserOnly(), routes.TrainerSelectRoute)
+
+	app.Get("/progresslog", utils.Validate(), utils.UserOnly(), routes.UserProgress)
+	app.Post("/progresslog", utils.Validate(), utils.UserOnly(), routes.UserProgress)
+
+	// below these are the trainer routes
+
+	app.Get("/create_workout/:id", utils.Validate(), utils.TrainerOnly(), routes.CreateWorkoutRoute)
+	app.Post("/create_workout/:id", utils.Validate(), utils.TrainerOnly(), routes.CreateWorkoutRoute)
+
+	app.Get("/create_diet/:id", utils.Validate(), utils.TrainerOnly(), routes.CreateDietRoute)
+	app.Post("/create_diet/:id", utils.Validate(), utils.TrainerOnly(), routes.CreateDietRoute)
+
+	app.Get("/trainerhome", utils.Validate(), utils.TrainerOnly(), func(c *fiber.Ctx) error {
 		id := c.Locals("UserId")
 		val := id.(int)
 
@@ -130,16 +94,7 @@ func main() {
 		}, "layout")
 	})
 
-	app.Get("/userprofile/:id", func(c *fiber.Ctx) error {
-		return routes.GetUserProfile(c, store)
-	})
-
-	app.Get("/progresslog", func(c *fiber.Ctx) error {
-		return routes.UserProgress(c, store)
-	})
-	app.Post("/progresslog", func(c *fiber.Ctx) error {
-		return routes.UserProgress(c, store)
-	})
+	app.Get("/userprofile/:id", utils.Validate(), utils.TrainerOnly(), routes.GetUserProfile)
 
 	app.Listen(":3000")
 }

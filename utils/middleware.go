@@ -44,7 +44,9 @@ func Validate() fiber.Handler {
 		// Lives only during one HTTP request (deleted after response is sent) and cannot access it across different requests/sessions
 		c.Locals("UserId", claims.UserId)
 		c.Locals("UserName", claims.UserName)
+		c.Locals("Role", claims.Role)
 
 		return c.Next()
 	}
+
 }

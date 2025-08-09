@@ -6,14 +6,13 @@ import (
 
 	"github.com/arshedke07/athletech/services"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
 type Payload struct {
 	Id string `json:"trainer_id"`
 }
 
-func TrainerSelectRoute(c *fiber.Ctx, store *session.Store) error {
+func TrainerSelectRoute(c *fiber.Ctx) error {
 	if c.Method() == "GET" {
 		// sess, _ := store.Get(c)
 
@@ -32,7 +31,6 @@ func TrainerSelectRoute(c *fiber.Ctx, store *session.Store) error {
 
 		// id := sess.Get("UserId")
 		id := c.Locals("UserId")
-		fmt.Println(id)
 		str := fmt.Sprintf("%v", id) // converted id variable to string and then convert to int
 		i, err := strconv.Atoi(str)
 		if err != nil {
@@ -50,10 +48,10 @@ func TrainerSelectRoute(c *fiber.Ctx, store *session.Store) error {
 		}
 
 		trainerId, _ := strconv.Atoi(data.Id)
-		fmt.Println(trainerId)
 
 		userErr := services.UpdateUserService(i, trainerId)
 		if userErr != nil {
+			fmt.Println(userErr)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"Success": false,
 				"Message": "An error occurred while selecting trainer.",
@@ -65,7 +63,7 @@ func TrainerSelectRoute(c *fiber.Ctx, store *session.Store) error {
 			"Success":  true,
 			"Message":  "Trainer Selected Successfully",
 			"UserName": c.Locals("UserName"),
-		}, "layout")
+		})
 	}
 	return nil
 }

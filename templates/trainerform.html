@@ -1,114 +1,243 @@
-<style>
-    body {
-        color: black;
-        background: url('https://us.123rf.com/450wm/h4ckermodify/h4ckermodify2304/h4ckermodify230400161/201878567-gym-or-fitness-with-sunset-light-background-for-web-design-template-website.jpg?ver=6') no-repeat center center fixed;
-        background-size: cover;
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    /* Center the form and style it */
-    .fitness-form {
-        max-width: 600px;
-        /* Reduce width for better alignment */
-        margin: 100px auto 40px;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        text-align: left;
-        /* Align text inside the form to the left */
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Fitness Journey Today</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            color: #333;
+            background: url('https://us.123rf.com/450wm/h4ckermodify/h4ckermodify2304/h4ckermodify230400161/201878567-gym-or-fitness-with-sunset-light-background-for-web-design-template-website.jpg?ver=6') no-repeat center center fixed;
+            background-size: cover;
+        }
 
-    /* Align labels and inputs properly */
-    .fitness-form .form-group {
-        text-align: left;
-        padding-bottom: 10px;
-    }
+        .fitness-form {
+            font-family: 'Montserrat', sans-serif;
+            max-width: 700px;
+            margin: 60px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
 
-    /* Make label width consistent and align left */
-    .fitness-form .control-label {
-        text-align: left !important;
-        font-weight: bold;
-    }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
 
-    /* Align input fields to the left */
-    .fitness-form .col-sm-8 {
-        text-align: left;
-    }
+        .form-group {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
 
-    /* Add spacing for better readability */
-    .fitness-form h2 {
-        padding: 20px 0;
-        text-align: center;
-    }
-</style>
+        .form-group label {
+            flex: 0 0 35%;
+            font-weight: 600;
+            padding-right: 15px;
+        }
+
+        .form-group input,
+        .form-group select {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #27ae60;
+            outline: none;
+            box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
+        }
+
+        button[type="submit"] {
+            width: 70%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background-color: #27ae60;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #219150;
+        }
+
+        @media (max-width: 768px) {
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-group label {
+                margin-bottom: 5px;
+                flex: unset;
+            }
+        }
+    </style>
+</head>
+
 
 <form class="form-horizontal fitness-form" action="/trainerform" method="post">
-    <h2 class="text-center">Start Your Fitness Journey Today</h2>
+    <h2 class="text-center">Register As A Trainer Today on Athletech</h2>
 
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="firstname">First Name:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter your First name"
-                required>
+    <div id="step1">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="firstname">First Name:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="firstname" name="firstname"
+                    placeholder="Enter your First name" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="lastname">Last Name:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your Last Name"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="email">Email:</label>
+            <div class="col-sm-8">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="password">Set Password:</label>
+            <div class="col-sm-8">
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Enter your Password" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="mobile">Mobile:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter your Mobile Number"
+                    required>
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label class="control-label col-sm-4" for="role">Do You Want to Register as User or Trainer</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="role" name="role" required>
+                    <option value="">Select Role</option>
+                    <option value="user">User</option>
+                    <option value="trainer">Trainer</option>
+                </select>
+            </div>
+        </div> -->
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8">
+                <button type="button" class="btn btn-success btn-block" onclick="showStep2()">Continue</button>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="lastname">Last Name:</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter your Last Name"
-                required>
+    <div id="step2" style="display:none;">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="age">Age:</label>
+            <div class="col-sm-8">
+                <input type="number" class="form-control" id="age" name="age" placeholder="Enter your Age" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="gender">Gender:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="gender" name="gender" placeholder="Enter your Gender"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="specialization">What is Your Specialization:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="specialization" name="specialization"
+                    placeholder="Enter your Specialization" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="experience">How Much Experience Do you Have in This
+                Field:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="experience" name="experience"
+                    placeholder="Enter your Experience" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="languages">Mention the Languages You Speak:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="languages" name="languages"
+                    placeholder="Enter your Languages" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="city">Enter Your City:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="city" name="city" placeholder="Enter City" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="state">Enter Your State:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="state" name="state" placeholder="Enter State" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="social_media">Enter your Social Media Link (Enter Only
+                One):</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="social_media" name="social_media"
+                    placeholder="Enter your Social Media" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="description">Tell Us Something About Yourself (optional):</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="description" name="description"
+                    placeholder="Enter your Description">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8">
+                <button type="submit" class="btn btn-success btn-block">Register</button>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="email">Email:</label>
-        <div class="col-sm-8">
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="password">Set Password</label>
-        <div class="col-sm-8">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your Password"
-                required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="age">Age:</label>
-        <div class="col-sm-8">
-            <input type="number" class="form-control" id="age" name="age" placeholder="Enter your Age" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="gender">Gender</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="gender" name="gender" placeholder="Enter your Gender" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="experience">Qualifications</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="qualifications" name="qualifications"
-                placeholder="Enter your Qualifications" required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="gender">Mobile Number</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter your Mobile Number"
-                required>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
-            <button type="submit" class="btn btn-success btn-block">Register</button>
-        </div>
-    </div>
 </form>
+
+<script>
+    function showStep2() {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+    }
+</script>

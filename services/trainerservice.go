@@ -6,8 +6,9 @@ import (
 	"github.com/arshedke07/athletech/model"
 )
 
-func AddTrainerService(trainer *model.Trainer) (*model.Trainer, error) {
-	insertstatement := "INSERT INTO app_trainer (firstname, lastname, age, gender, qualifications, email_id, password, mobile) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING trainer_id"
+func AddTrainerService(profile *model.TrainerProfile) (*model.AppUser, error) {
+	insertstatement1 := "INSERT INTO app_user (firstname, lastname, emailid, password, mobile, role) VALUES ($1, $2, $3, $4, $5, $6) RETURNING user_id"
+	insertstatement2 := "INSERT INTO trainer_profile (user_id, age, gender, specialization, experience, languages, city, state, social_media, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)"
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {
 		return nil, err
@@ -17,29 +18,31 @@ func AddTrainerService(trainer *model.Trainer) (*model.Trainer, error) {
 
 	var id int
 
-	row := db.QueryRow(insertstatement, trainer.FirstName, trainer.LastName, trainer.Age, trainer.Gender, trainer.Qualifications, trainer.Email, trainer.Password, trainer.Mobile)
+	row := db.QueryRow(insertstatement1, profile.User.FirstName, profile.User.LastName, profile.User.Email, profile.User.Password, profile.User.Mobile, profile.User.Role)
 	scanErr := row.Scan(&id)
 	if scanErr != nil {
 		return nil, scanErr
 	}
 
-	newUser := model.Trainer{
-		Id:             id,
-		FirstName:      trainer.FirstName,
-		LastName:       trainer.LastName,
-		Age:            trainer.Age,
-		Gender:         trainer.Gender,
-		Qualifications: trainer.Qualifications,
-		Email:          trainer.Email,
-		Password:       trainer.Password,
-		Mobile:         trainer.Mobile,
+	_, execErr := db.Exec(insertstatement2, id, profile.Age, profile.Gender, profile.Specialization, profile.Experience, profile.Languages, profile.City, profile.State, profile.SocialMedia, profile.Description)
+	if execErr != nil {
+		return nil, execErr
+	}
+
+	newUser := model.AppUser{
+		UserId:    id,
+		FirstName: profile.User.FirstName,
+		LastName:  profile.User.LastName,
+		Email:     profile.User.Email,
+		Password:  profile.User.Password,
+		Mobile:    profile.User.Mobile,
 	}
 
 	return &newUser, nil
 }
 
-func GetPendingUsers(id int) (*[]model.AppUser, error) {
-	selectstatement := "SELECT user_id, firstname, lastname, age, goal, experience FROM app_user NATURAL JOIN user_profile WHERE trainer = $1 "
+func GetPendingUsers(id int) (*[]model.UserProfile, error) {
+	selectstatement := "SELECT user_id, firstname, lastname, age, goal FROM app_user NATURAL JOIN user_profile up WHERE up.trainer_id = $1 "
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {
 		return nil, err
@@ -53,11 +56,11 @@ func GetPendingUsers(id int) (*[]model.AppUser, error) {
 	}
 	defer row.Close()
 
-	users := []model.AppUser{}
+	users := []model.UserProfile{}
 
 	for row.Next() {
-		user := model.AppUser{}
-		scanErr := row.Scan(&user.UserId, &user.FirstName, &user.LastName, &user.Preferences.Age, &user.Preferences.Goal, &user.Preferences.Experience)
+		user := model.UserProfile{}
+		scanErr := row.Scan(&user.User.UserId, &user.User.FirstName, &user.User.LastName, &user.Age, &user.Goal)
 		if scanErr != nil {
 			return nil, scanErr
 		}
@@ -67,8 +70,8 @@ func GetPendingUsers(id int) (*[]model.AppUser, error) {
 	return &users, nil
 }
 
-func GetAllTrainers() (*[]model.Trainer, error) {
-	selectstatement := "SELECT trainer_id, firstname, lastname, age, gender, qualifications, email_id, mobile FROM app_trainer"
+func GetAllTrainers() (*[]model.TrainerProfile, error) {
+	selectstatement := "SELECT user_id, firstname, lastname, emailid, mobile, age, gender, specialization, experience, languages, city, state, social_media, description FROM app_user au NATURAL JOIN trainer_profile WHERE au.role = 'trainer' "
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {
 		return nil, err
@@ -76,7 +79,7 @@ func GetAllTrainers() (*[]model.Trainer, error) {
 
 	defer db.Close()
 
-	trainers := []model.Trainer{}
+	trainers := []model.TrainerProfile{}
 
 	rows, rowErr := db.Query(selectstatement)
 	if rowErr != nil {
@@ -86,8 +89,8 @@ func GetAllTrainers() (*[]model.Trainer, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		trainer := model.Trainer{}
-		scanErr := rows.Scan(&trainer.Id, &trainer.FirstName, &trainer.LastName, &trainer.Age, &trainer.Gender, &trainer.Qualifications, &trainer.Email, &trainer.Mobile)
+		trainer := model.TrainerProfile{}
+		scanErr := rows.Scan(&trainer.User.UserId, &trainer.User.FirstName, &trainer.User.LastName, &trainer.User.Email, &trainer.User.Mobile, &trainer.Age, &trainer.Gender, &trainer.Specialization, &trainer.Experience, &trainer.Languages, &trainer.City, &trainer.State, &trainer.SocialMedia, &trainer.Description)
 		if scanErr != nil {
 			return nil, scanErr
 		}

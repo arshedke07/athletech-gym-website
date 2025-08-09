@@ -5,12 +5,9 @@ import (
 
 	"github.com/arshedke07/athletech/services"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
-func GetUserProfile(c *fiber.Ctx, store *session.Store) error {
-	// sess, _ := store.Get(c)
-
+func GetUserProfile(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return err

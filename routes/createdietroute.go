@@ -7,10 +7,9 @@ import (
 	"github.com/arshedke07/athletech/model"
 	"github.com/arshedke07/athletech/services"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 )
 
-func CreateDietRoute(c *fiber.Ctx, store *session.Store) error {
+func CreateDietRoute(c *fiber.Ctx) error {
 	// sess, _ := store.Get(c)
 
 	if c.Method() == "GET" {

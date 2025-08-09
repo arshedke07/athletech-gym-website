@@ -206,15 +206,14 @@
                 {{range .Data}}
                 <li class="client-list-item">
                     <div class="client-info">
-                        <h4>{{ .FirstName }} {{ .LastName }}</h4>
-                        <p>Goal: {{ .Preferences.Goal }} | Age: {{ .Preferences.Age }} | Experience: {{
-                            .Preferences.Experience }}</p>
+                        <h4>{{ .User.FirstName }} {{ .User.LastName }}</h4>
+                        <p>Age: {{ .Age }} | Goal: {{ .Goal }} </p>
                         <span class="status-badge status-pending">New Request</span>
                     </div>
                     <div class="client-actions">
-                        <a href="/userprofile/{{ .UserId }}" class="btn-action btn-view">View Profile</a>
-                        <a href="/create_diet/{{ .UserId }}" class="btn-action btn-view">Create Diet Plan</a>
-                        <a href="/create_workout/{{ .UserId }}" class="btn-action btn-view">Create Workout Plan</a>
+                        <a href="/userprofile/{{ .User.UserId }}" class="btn-action btn-view">View Profile</a>
+                        <a href="/create_diet/{{ .User.UserId }}" class="btn-action btn-view">Create Diet Plan</a>
+                        <a href="/create_workout/{{ .User.UserId }}" class="btn-action btn-view">Create Workout Plan</a>
                         <!-- <button class="btn-action btn-delete">Reject</button> -->
                     </div>
                 </li>

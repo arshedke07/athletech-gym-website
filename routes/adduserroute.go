@@ -8,11 +8,10 @@ import (
 	"github.com/arshedke07/athletech/services"
 	"github.com/arshedke07/athletech/utils"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/session"
 	_ "github.com/lib/pq"
 )
 
-func AddUser(c *fiber.Ctx, store session.Store) error {
+func AddUser(c *fiber.Ctx) error {
 	if c.Method() == "GET" {
 		return c.Render("signupform", fiber.Map{
 			"Title": "Athletech",
@@ -30,6 +29,7 @@ func AddUser(c *fiber.Ctx, store session.Store) error {
 			Password:  string(hashedPassword),
 			Email:     c.FormValue("email"),
 			Mobile:    c.FormValue("mobile"),
+			Role:      "user",
 		}
 
 		ageStr := c.FormValue("age")
@@ -44,7 +44,8 @@ func AddUser(c *fiber.Ctx, store session.Store) error {
 		weightStr := c.FormValue("weight")
 		weight, _ := strconv.Atoi(weightStr)
 
-		profile := model.Preferences{
+		profile := model.UserProfile{
+			User:                  user,
 			Age:                   age,
 			Height:                height,
 			Weight:                float32(weight),
@@ -60,12 +61,12 @@ func AddUser(c *fiber.Ctx, store session.Store) error {
 			MedicalConditions:     c.FormValue("medical_conditions"),
 		}
 
-		data, err := services.AddUserService(&user, &profile)
+		data, err := services.AddUserService(&profile)
 		if err != nil {
 			return err
 		}
 		// generate token after successful sign up
-		token, tokenErr := utils.GenerateToken(data.UserId, data.FirstName+" "+data.LastName, "none")
+		token, tokenErr := utils.GenerateToken(data.UserId, data.FirstName+" "+data.LastName, data.Role)
 		if tokenErr != nil {
 			return tokenErr
 		}
@@ -103,23 +104,34 @@ func AddTrainer(c *fiber.Ctx) error {
 			return err
 		}
 
-		user := model.Trainer{
-			FirstName:      c.FormValue("firstname"),
-			LastName:       c.FormValue("lastname"),
-			Age:            age,
-			Qualifications: c.FormValue("qualifications"),
-			Gender:         c.FormValue("gender"),
-			Password:       string(hashedPassword),
-			Email:          c.FormValue("email"),
-			Mobile:         c.FormValue("mobile"),
+		user := model.AppUser{
+			FirstName: c.FormValue("firstname"),
+			LastName:  c.FormValue("lastname"),
+			Password:  string(hashedPassword),
+			Email:     c.FormValue("email"),
+			Mobile:    c.FormValue("mobile"),
+			Role:      "trainer",
 		}
 
-		data, err := services.AddTrainerService(&user)
+		trainer := model.TrainerProfile{
+			User:           user,
+			Age:            age,
+			Gender:         c.FormValue("gender"),
+			Specialization: c.FormValue("specialization"),
+			Experience:     c.FormValue("experience"),
+			Languages:      c.FormValue("languages"),
+			City:           c.FormValue("city"),
+			State:          c.FormValue("state"),
+			SocialMedia:    c.FormValue("social_media"),
+			Description:    c.FormValue("description"),
+		}
+
+		data, err := services.AddTrainerService(&trainer)
 		if err != nil {
 			return err
 		}
 
-		token, tokenErr := utils.GenerateToken(data.Id, data.FirstName+" "+data.LastName, "none")
+		token, tokenErr := utils.GenerateToken(data.UserId, data.FirstName+" "+data.LastName, data.Role)
 		if tokenErr != nil {
 			return tokenErr
 		}
