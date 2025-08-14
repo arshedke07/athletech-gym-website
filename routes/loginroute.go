@@ -17,6 +17,7 @@ func LoginUserRoute(c *fiber.Ctx) error {
 	} else if c.Method() == "POST" {
 		emailid := c.FormValue("email")
 		password := c.FormValue("password")
+
 		user, err := services.LoginUserService(emailid, password)
 		if err != nil {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
@@ -44,20 +45,22 @@ func LoginUserRoute(c *fiber.Ctx) error {
 		})
 
 		if user.Role == "user" {
-			return c.Render("userhome", fiber.Map{
-				"Title":    "User Home",
-				"UserName": firstName + " " + lastName,
-			}, "layout")
+			// return c.RedirectToRoute("userhome", fiber.Map{
+			// 	"Title":    "User Home",
+			// 	"UserName": firstName + " " + lastName,
+			// })
+			return c.Redirect("/userhome")
 		} else if user.Role == "trainer" {
-			users, err := services.GetPendingUsers(user.UserId)
-			if err != nil {
-				return err
-			}
-			return c.Render("trainerhome", fiber.Map{
-				"Title":       "User Home",
-				"TrainerName": firstName + " " + lastName,
-				"Data":        users,
-			}, "layout")
+			// users, err := services.GetPendingUsers(user.UserId)
+			// if err != nil {
+			// 	return err
+			// }
+			// return c.Render("trainerhome", fiber.Map{
+			// 	"Title":       "User Home",
+			// 	"TrainerName": firstName + " " + lastName,
+			// 	"Data":        users,
+			// }, "layout")
+			return c.Redirect("/trainerhome")
 		}
 	}
 

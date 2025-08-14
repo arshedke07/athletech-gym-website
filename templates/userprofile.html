@@ -89,69 +89,69 @@
     <div class="profile-container">
         <div class="profile-header">
             <img class="profile-avatar" src="" alt="User Photo" />
-            <h2>{{ .Data.FirstName}} {{ .Data.LastName}}</h2>
+            <h2>{{ .Data.User.FirstName}} {{ .Data.User.LastName}}</h2>
         </div>
 
         <div class="profile-grid">
             <div class="profile-item">
                 <span class="label">Email</span>
-                <span class="value">{{ .Data.Email }}</span>
+                <span class="value">{{ .Data.User.Email }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Mobile</span>
-                <span class="value">{{ .Data.Mobile }}</span>
+                <span class="value">{{ .Data.User.Mobile }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Age</span>
-                <span class="value">{{ .Data.Preferences.Age }}</span>
+                <span class="value">{{ .Data.Age }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Gender</span>
-                <span class="value">{{ .Data.Preferences.Gender }}</span>
+                <span class="value">{{ .Data.Gender }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Weight</span>
-                <span class="value">{{ .Data.Preferences.Weight }}</span>
+                <span class="value">{{ .Data.Weight }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Height</span>
-                <span class="value">{{ .Data.Preferences.Height }}</span>
+                <span class="value">{{ .Data.Height }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Experience</span>
-                <span class="value">{{ .Data.Preferences.Experience }}</span>
+                <span class="value">{{ .Data.Experience }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Goal</span>
-                <span class="value">{{ .Data.Preferences.Goal }}</span>
+                <span class="value">{{ .Data.Goal }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Body Type</span>
-                <span class="value">{{ .Data.Preferences.CurrentBodyType}}</span>
+                <span class="value">{{ .Data.CurrentBodyType}}</span>
             </div>
             <div class="profile-item">
-                <span class="label">Workout Location</span>
-                <span class="value">{{ .Data.Preferences.GymAccess }}</span>
+                <span class="label">Prefered Place to Workout</span>
+                <span class="value">{{ .Data.GymAccess }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Workout Days/Week</span>
-                <span class="value">{{ .Data.Preferences.DaysAvailable }}</span>
+                <span class="value">{{ .Data.DaysAvailable }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Preferred Workout Time</span>
-                <span class="value">{{ .Data.Preferences.WorkoutTimePreference }}</span>
+                <span class="value">{{ .Data.WorkoutTimePreference }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Dietary Restrictions</span>
-                <span class="value">{{ .Data.Preferences.DietaryRestrictions}}</span>
+                <span class="value">{{ .Data.DietaryRestrictions}}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Injuries</span>
-                <span class="value">{{ .Data.Preferences.Injuries }}</span>
+                <span class="value">{{ .Data.Injuries }}</span>
             </div>
             <div class="profile-item">
                 <span class="label">Medical Conditions</span>
-                <span class="value">{{ .Data.Preferences.MedicalConditions }}</span>
+                <span class="value">{{ .Data.MedicalConditions }}</span>
             </div>
         </div>
     </div>

@@ -177,6 +177,11 @@
         color: #ef6c00;
     }
 
+    .status-created {
+        background-color: #d1fadf;
+        color: #027a48;
+    }
+
     .search-bar {
         margin-bottom: 20px;
     }
@@ -208,7 +213,16 @@
                     <div class="client-info">
                         <h4>{{ .User.FirstName }} {{ .User.LastName }}</h4>
                         <p>Age: {{ .Age }} | Goal: {{ .Goal }} </p>
-                        <span class="status-badge status-pending">New Request</span>
+                        {{if .WorkoutCreated}}
+                        <span class="status-badge status-created">Workout Created</span>
+                        {{else}}
+                        <span class="status-badge status-pending">Workout Not Created</span>
+                        {{end}}
+                        {{if .DietCreated}}
+                        <span class="status-badge status-created">Diet Plan Created</span>
+                        {{else}}
+                        <span class="status-badge status-pending">Diet Plan Not Created</span>
+                        {{end}}
                     </div>
                     <div class="client-actions">
                         <a href="/userprofile/{{ .User.UserId }}" class="btn-action btn-view">View Profile</a>

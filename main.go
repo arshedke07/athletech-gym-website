@@ -60,6 +60,7 @@ func main() {
 		UserName := c.Locals("UserName")
 
 		return c.Render("userhome", fiber.Map{
+			"Title":    "User Home",
 			"UserName": UserName,
 		}, "layout")
 	})
@@ -88,7 +89,7 @@ func main() {
 		}
 
 		return c.Render("trainerhome", fiber.Map{
-			"Title":       "Athletech",
+			"Title":       "Trainer Home",
 			"Data":        data,
 			"TrainerName": c.Locals("UserName"),
 		}, "layout")

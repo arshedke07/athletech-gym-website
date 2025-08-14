@@ -25,6 +25,8 @@ type UserProfile struct {
 	DietaryRestrictions   string
 	Injuries              string
 	MedicalConditions     string
+	WorkoutCreated        bool // these are flags to check if the user already has a plan created by their trainer or not
+	DietCreated           bool
 }
 
 type TrainerProfile struct {
