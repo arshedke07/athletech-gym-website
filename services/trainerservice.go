@@ -43,6 +43,7 @@ func AddTrainerService(profile *model.TrainerProfile) (*model.AppUser, error) {
 
 func GetPendingUsers(id int) (*[]model.UserProfile, error) {
 	selectstatement := "SELECT au.user_id, au.firstname, au.lastname, u.age, u.goal, CASE WHEN EXISTS (SELECT 1 FROM workout w WHERE w.user_id = au.user_id) THEN true ELSE false END AS workout_created, CASE WHEN EXISTS (SELECT 1 FROM diet d WHERE d.user_id = au.user_id) THEN true ELSE false END AS diet_created FROM app_user au NATURAL JOIN user_profile u WHERE u.trainer_id = $1"
+	// query checks if the user has a workout created or not and diet plan created or not while returning their details for the trainerhome page
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {
 		return nil, err

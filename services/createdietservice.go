@@ -2,12 +2,13 @@ package services
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/arshedke07/athletech/model"
 )
 
 func GetDayByName(name string) (int, error) {
-	selectstatement := "SELECT id FROM days WHERE name = $1"
+	selectstatement := "SELECT id FROM days WHERE day = $1"
 	db, err := sql.Open("postgres", connectionstring)
 	if err != nil {
 		return -1, err
@@ -95,6 +96,7 @@ func CreateDietService(dietDay model.DietDay, userId int) error {
 	row1 := db.QueryRow(insertstatement1, dietDay.Nutrients.Protein, dietDay.Nutrients.Fats, dietDay.Nutrients.Carbs, dietDay.Nutrients.Calories)
 	rowErr1 := row1.Scan(&nutrientId)
 	if rowErr1 != nil {
+		fmt.Println(rowErr1)
 		return rowErr1
 	}
 

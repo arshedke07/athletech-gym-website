@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// authorization functions for user and trainer
 func UserOnly() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		role := c.Locals("Role")

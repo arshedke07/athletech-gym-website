@@ -58,18 +58,20 @@ func main() {
 
 	app.Get("/userhome", utils.Validate(), utils.UserOnly(), func(c *fiber.Ctx) error {
 		UserName := c.Locals("UserName")
+		UserId := c.Locals("UserId")
 
 		return c.Render("userhome", fiber.Map{
 			"Title":    "User Home",
 			"UserName": UserName,
+			"Id":       UserId,
 		}, "layout")
 	})
 
 	app.Get("/trainerselect", utils.Validate(), utils.UserOnly(), routes.TrainerSelectRoute)
 	app.Post("/trainerselect", utils.Validate(), utils.UserOnly(), routes.TrainerSelectRoute)
 
-	app.Get("/progresslog", utils.Validate(), utils.UserOnly(), routes.UserProgress)
-	app.Post("/progresslog", utils.Validate(), utils.UserOnly(), routes.UserProgress)
+	// app.Get("/progresslog", utils.Validate(), utils.UserOnly(), routes.UserProgress)
+	// app.Post("/progresslog", utils.Validate(), utils.UserOnly(), routes.UserProgress)
 
 	// below these are the trainer routes
 

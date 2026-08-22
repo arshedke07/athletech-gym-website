@@ -40,8 +40,8 @@ func LoginUserRoute(c *fiber.Ctx) error {
 			Value:    token,
 			Expires:  time.Now().Add(24 * time.Hour), // match token expiry
 			HTTPOnly: true,                           // prevent JS access (protects from XSS)
-			Secure:   true,                           // send only over HTTPS
-			SameSite: "Strict",                       // or "Lax" to balance CSRF protection and UX
+			Secure:   false,                          // send only over HTTPS
+			SameSite: "Lax",                          // or "Lax" to balance CSRF protection and UX
 		})
 
 		if user.Role == "user" {
